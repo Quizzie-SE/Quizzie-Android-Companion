@@ -1,0 +1,35 @@
+[33mcommit f9d7dc4c34cd9c5bda2a26643103bea6b4cd9cde[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Amit Krishna A <amit.ananthkumar@gmail.com>
+Date:   Wed Mar 17 11:08:11 2021 +0530
+
+    chore(cd): Configure apk distribution to testers
+
+[33mcommit 5c1017fa8c3c6c2a9a2b007fcf7e734985cb15f0[m
+Author: Amit Krishna A <amit.ananthkumar@gmail.com>
+Date:   Tue Mar 16 18:18:26 2021 +0530
+
+    chore(ci): Add build workflow
+
+[33mcommit a85312586b6480b06ce6e5a691de33f3003ef1fa[m
+Author: Amit Krishna A <amit.ananthkumar@gmail.com>
+Date:   Tue Mar 16 08:13:01 2021 +0530
+
+    feat(core): Add deps
+
+[33mcommit 8e24557fbffa6aaad0bcf0b143f5004038b23e17[m
+Author: Amit Krishna A <54491362+akri16@users.noreply.github.com>
+Date:   Tue Mar 16 22:31:24 2021 +0530
+
+    Create README.md
+
+[33mcommit f881098bfc963e606eae405e315a82df3d672618[m
+Author: Amit Krishna A <54491362+akri16@users.noreply.github.com>
+Date:   Tue Mar 16 15:54:16 2021 +0530
+
+    Create LICENSE
+
+[33mcommit 9e1a623f6a4baeebe5463a08c6e2f134d64a311f[m
+Author: Amit Krishna A <amit.ananthkumar@gmail.com>
+Date:   Tue Mar 16 06:42:19 2021 +0530
+
+    Initial commit
