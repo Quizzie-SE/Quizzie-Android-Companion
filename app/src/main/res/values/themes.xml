@@ -13,4 +13,31 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="sign_in_buttos_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">68dp</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:background">@drawable/signin_button</item>
+        <item name="android:foreground">@drawable/ripple</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingStart">75dp</item>
+        <item name="android:paddingEnd">75dp</item>
+    </style>
+
+    <style name="sign_in_buttos_style_google">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginTop">84dp</item>
+        <item name="android:layout_marginBottom">26dp</item>
+        <item name="android:background">@drawable/signin_button</item>
+        <item name="android:foreground">@drawable/ripple</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

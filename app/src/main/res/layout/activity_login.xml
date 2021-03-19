@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorLightBlueBackground"
+        tools:context=".LoginActivity">
+
+        <TextView
+            android:id="@+id/login_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:fontFamily="@font/cerebri_sans_bold"
+            android:gravity="center"
+            android:text="Login Now"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/google_sign_in"
+            style="@style/sign_in_buttos_style"
+            android:layout_width="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="#0083C2"
+            android:fontFamily="@font/cerebri_sans_bold"
+            android:text="Continue with Google"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_header" />
+
+        <TextView
+            android:id="@+id/email_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="93dp"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:text="Email"
+            android:textColor="#8E8A8A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/google_sign_in" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/edit_text_border"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:hint="Enter email"
+            android:paddingStart="22dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="#8E8A8A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_tv" />
+
+        <TextView
+            android:id="@+id/pass_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:text="Password"
+            android:textColor="#8E8A8A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/edit_text_border"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:hint="Enter password"
+            android:paddingStart="22dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="#8E8A8A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pass_tv" />
+
+        <TextView
+            android:id="@+id/forgot_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:text="Forgot your password?"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+        <Button
+            android:id="@+id/login_btn"
+            style="@style/sign_in_buttos_style_google"
+            android:layout_width="0dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="72dp"
+            android:background="@drawable/google_sign_in"
+            android:fontFamily="@font/cerebri_sans_bold"
+            android:paddingStart="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="0dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forgot_pass" />
+
+        <TextView
+            android:id="@+id/dont_have_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/cerebri_sans_regular"
+            android:gravity="center"
+            android:text="Don't have an account? Join Quizzie now!"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
