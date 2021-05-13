@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:background="@color/colorLightBlueBackground"
     android:padding="10dp">
 
@@ -36,6 +37,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/date_and_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -43,7 +45,6 @@
         android:fontFamily="@font/cerebri_sans_regular"
         android:gravity="center"
         android:text="Aug 10th, 13:20"
-        android:id="@+id/date_and_time"
         android:textColor="#8E8A8A"
         android:textSize="14sp" />
 

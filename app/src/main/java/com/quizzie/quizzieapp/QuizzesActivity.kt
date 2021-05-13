@@ -23,14 +23,14 @@ class QuizzesActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mymenu, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
-        if (id == R.id.mybutton) {
-            // do something here
+        if (id == R.id.logout) {
+            // logout
         }
         return super.onOptionsItemSelected(item)
     }
