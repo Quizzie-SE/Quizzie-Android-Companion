@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightBlueBackground"
+    android:background="@color/white"
     tools:context=".QuizzesActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <!--<com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -56,6 +56,8 @@
                 android:src="@drawable/ic_menu" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.MaterialToolbar>-->
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
