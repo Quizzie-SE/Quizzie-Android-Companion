@@ -13,15 +13,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        var login: Button = findViewById<Button>(R.id.login_btn)
+        supportActionBar?.hide()
+
+        var login: Button = findViewById(R.id.login_btn)
         login.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }
 
-        var signin = findViewById(R.id.google_sign_in) as AppCompatButton
+        var signin = findViewById<AppCompatButton>(R.id.google_sign_in)
         signin.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }
     }
