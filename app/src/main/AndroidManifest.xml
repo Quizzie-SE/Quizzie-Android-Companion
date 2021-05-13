@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizzieApp">
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".QuizzesActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ui.splash.MainActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>

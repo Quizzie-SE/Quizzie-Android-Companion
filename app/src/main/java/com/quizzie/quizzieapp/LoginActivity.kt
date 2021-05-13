@@ -17,13 +17,13 @@ class LoginActivity : AppCompatActivity() {
 
         var login: Button = findViewById(R.id.login_btn)
         login.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }
 
         var signin = findViewById<AppCompatButton>(R.id.google_sign_in)
         signin.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }
     }
