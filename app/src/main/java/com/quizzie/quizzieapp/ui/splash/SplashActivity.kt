@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
-import com.quizzie.quizzieapp.LoginActivity
+import com.quizzie.quizzieapp.AddQuestionActivity
 import com.quizzie.quizzieapp.R
 
 @Suppress("DEPRECATION")
@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         Handler().postDelayed(
             {
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, AddQuestionActivity::class.java))
                 finish()
             }, SPLASH_TIME_OUT
         )

@@ -4,6 +4,257 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".AddQuestionActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/add_question_questions_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="49dp"
+                android:fontFamily="@font/cerebri_sans_bold"
+                android:text="Question"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/add_question_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="16.5dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edit_text_border"
+                android:backgroundTint="@color/black"
+                android:fontFamily="@font/cerebri_sans_regular"
+                android:hint="Enter the question"
+                android:paddingStart="22dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#8E8A8A"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_question_questions_tv" />
+
+            <TextView
+                android:id="@+id/add_question_options_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="70.5dp"
+                android:fontFamily="@font/cerebri_sans_bold"
+                android:text="Options"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_question_question" />
+
+            <RadioGroup
+                android:id="@+id/add_question_options_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="17.5dp"
+                android:layout_marginEnd="13dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_question_options_tv">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorLightBlueBackground"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <RadioButton
+                        android:id="@+id/add_question_radio_option1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="14dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_question_option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_text_border"
+                        android:backgroundTint="@color/colorLightBlueBackground"
+                        android:fontFamily="@font/cerebri_sans_regular"
+                        android:hint="Option 1"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="22dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="#8E8A8A"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_question_questions_tv" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorLightBlueBackground"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <RadioButton
+                        android:id="@+id/add_question_radio_option2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="14dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_question_option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_text_border"
+                        android:backgroundTint="@color/colorLightBlueBackground"
+                        android:fontFamily="@font/cerebri_sans_regular"
+                        android:hint="Option 2"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="22dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="#8E8A8A"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_question_questions_tv" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorLightBlueBackground"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="10dp">
+
+                    <RadioButton
+                        android:id="@+id/add_question_radio_option3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="14dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_question_option3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_text_border"
+                        android:backgroundTint="@color/colorLightBlueBackground"
+                        android:fontFamily="@font/cerebri_sans_regular"
+                        android:hint="Option 3"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="22dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="#8E8A8A"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_question_questions_tv" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorLightBlueBackground"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="10dp">
+
+                    <RadioButton
+                        android:id="@+id/add_question_radio_option4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="14dp"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="false"
+                        android:gravity="center" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/add_question_option4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_text_border"
+                        android:backgroundTint="@color/colorLightBlueBackground"
+                        android:fontFamily="@font/cerebri_sans_regular"
+                        android:hint="Option 4"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="22dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="#8E8A8A"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/add_question_questions_tv" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_camera"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

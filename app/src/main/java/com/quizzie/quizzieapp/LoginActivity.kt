@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.widget.AppCompatButton
 import com.quizzie.quizzieapp.ui.splash.MainActivity
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,14 +16,12 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        var login: Button = findViewById(R.id.login_btn)
-        login.setOnClickListener {
+        login_btn.setOnClickListener {
             val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }
 
-        var signin = findViewById<AppCompatButton>(R.id.google_sign_in)
-        signin.setOnClickListener {
+        google_sign_in.setOnClickListener {
             val intent = Intent(this, QuizzesActivity::class.java)
             startActivity(intent)
         }

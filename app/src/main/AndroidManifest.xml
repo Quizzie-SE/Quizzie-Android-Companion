@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizzieApp">
         <activity android:name=".AddQuestionActivity"></activity>
+        <activity android:name=".AddQuestionActivity" />
         <activity android:name=".QuizzesActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ui.splash.MainActivity" />
