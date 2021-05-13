@@ -17,6 +17,7 @@ class AddQuestionActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         val colorDrawable = ColorDrawable(Color.parseColor("#007BBA"))
         actionBar!!.setBackgroundDrawable(colorDrawable)
+        actionBar.elevation = 10F
         supportActionBar!!.title = "Add Question"
 
         add_question_radio_option1.setOnClickListener {
@@ -52,6 +53,9 @@ class AddQuestionActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
+        if (id == R.id.save) {
+            // save changes
+        }
         if (id == R.id.logout) {
             // logout
         }

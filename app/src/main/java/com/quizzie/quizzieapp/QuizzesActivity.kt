@@ -19,6 +19,7 @@ class QuizzesActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         val colorDrawable = ColorDrawable(Color.parseColor("#007BBA"))
         actionBar!!.setBackgroundDrawable(colorDrawable)
+        actionBar.elevation = 10F
         supportActionBar!!.title = "Quizzes"
     }
 

@@ -163,10 +163,10 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/colorLightBlueBackground"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:paddingBottom="10dp">
 
                     <RadioButton
@@ -203,10 +203,10 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
                     android:background="@color/colorLightBlueBackground"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:paddingBottom="10dp">
 
                     <RadioButton
