@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="kotlin.Unit"/>
+        <import type="com.quizzie.quizzieapp.util.GeneralUtilsKt" alias="util"/>
+        <variable
+            name="viewmodel"
+            type="com.quizzie.quizzieapp.ui.main.edit_quiz.EditQuizViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_border"
+                android:backgroundTint="@color/black"
+                android:text="@={viewmodel.insertQuesViewState.question.input}"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="60dp"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="How many states does India have?"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/question"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/main_subtitle_style" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/main_subtitle_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/options"
+                app:layout_constraintStart_toStartOf="@+id/question"
+                app:layout_constraintTop_toBottomOf="@+id/question" />
+
+            <LinearLayout
+                android:id="@+id/options"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/question"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                <include
+                    android:id="@+id/option1"
+                    bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(0, isChecked)}"
+                    bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(0)}"
+                    bind:optionLD="@{viewmodel.insertQuesViewState.options.get(0)}"
+                    layout="@layout/custom_options_card" />
+
+                <include
+                    android:id="@+id/option2"
+                    bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(1, isChecked)}"
+                    bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(1)}"
+                    bind:optionLD="@{viewmodel.insertQuesViewState.options.get(1)}"
+                    layout="@layout/custom_options_card" />
+
+                <include
+                    android:id="@+id/option3"
+                    bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(2, isChecked)}"
+                    bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(2)}"
+                    bind:optionLD="@{viewmodel.insertQuesViewState.options.get(2)}"
+                    layout="@layout/custom_options_card" />
+
+                <include
+                    android:id="@+id/option4"
+                    bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(3, isChecked)}"
+                    bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(3)}"
+                    bind:optionLD="@{viewmodel.insertQuesViewState.options.get(3)}"
+                    layout="@layout/custom_options_card" />
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:clickable="true"
+                android:contentDescription="@string/scan_question_from_paper"
+                android:focusable="true"
+                android:onClick="@{() -> viewmodel.captureQuestion()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/options"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_camera"
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

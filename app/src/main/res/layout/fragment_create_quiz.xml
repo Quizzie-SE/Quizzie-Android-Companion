@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.quizzie.quizzieapp.binding.Converter" />
+
+        <variable
+            name="viewmodel"
+            type="com.quizzie.quizzieapp.ui.main.edit_quiz.EditQuizViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/quiz_name_et"
+                layout="@layout/custom_title_over_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:errorLiveData="@{viewmodel.createQuizViewState.name.error}"
+                bind:textLiveData="@{viewmodel.createQuizViewState.name.input}"
+                bind:title="@{@string/quiz_name}"
+                bind:maxLength="@{25}"/>
+
+            <include
+                android:id="@+id/quiz_date_et"
+                layout="@layout/custom_title_over_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/quiz_name_et"
+                app:layout_constraintStart_toStartOf="@+id/quiz_name_et"
+                app:layout_constraintTop_toBottomOf="@+id/quiz_name_et"
+                bind:errorLiveData="@{viewmodel.createQuizViewState.date.error}"
+                bind:icon="@{@drawable/ic_calendar}"
+                bind:textLiveData="@{viewmodel.createQuizViewState.date.input}"
+                bind:title="@{@string/date}"
+                bind:maxLength="@{10}"/>
+
+            <include
+                android:id="@+id/quiz_time_et"
+                layout="@layout/custom_title_over_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/quiz_date_et"
+                app:layout_constraintStart_toStartOf="@+id/quiz_date_et"
+                app:layout_constraintTop_toBottomOf="@+id/quiz_date_et"
+                bind:errorLiveData="@{viewmodel.createQuizViewState.time.error}"
+                bind:icon="@{@drawable/ic_time}"
+                bind:textLiveData="@{viewmodel.createQuizViewState.time.input}"
+                bind:title="@{@string/time}"
+                bind:maxLength="@{10}"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/main_subtitle_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/questions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/circular_seekbar" />
+
+            <com.quizzie.quizzieapp.ui.custom.CircularSeekbar
+                android:id="@+id/circular_seekbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="@+id/quiz_time_et"
+                app:layout_constraintStart_toStartOf="@+id/quiz_time_et"
+                app:layout_constraintTop_toBottomOf="@+id/quiz_time_et"
+                app:maxProgress="@{60}"
+                tools:progress="20"
+                app:thickness="6dp"
+                app:backgroundColor="@color/white"
+                app:progress="@={Converter.intToFloat(viewmodel.createQuizViewState.duration.input)}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/questions_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_question" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/insert_a_new_question"
+                android:onClick="@{() -> viewmodel.createNewQuestion()}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3"
+                app:srcCompat="@drawable/ic_plus" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/duration(viewmodel.createQuizViewState.duration.input)}"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/circular_seekbar"
+                app:layout_constraintEnd_toEndOf="@+id/circular_seekbar"
+                app:layout_constraintStart_toStartOf="@+id/circular_seekbar"
+                app:layout_constraintTop_toTopOf="@+id/circular_seekbar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

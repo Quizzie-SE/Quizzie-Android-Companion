@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
-import com.quizzie.quizzieapp.LoginActivity
+import com.quizzie.quizzieapp.ui.auth.LoginActivity
 import com.quizzie.quizzieapp.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
     private val SPLASH_TIME_OUT = 2000L
