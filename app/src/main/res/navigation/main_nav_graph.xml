@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/quizzesFragment">
+
+    <fragment
+        android:id="@+id/quizzesFragment"
+        android:name="com.quizzie.quizzieapp.ui.main.quizzes.QuizzesFragment"
+        android:label="@string/all_quizzes">
+        <action
+            android:id="@+id/action_quizzesFragment_to_create_quiz_graph"
+            app:destination="@id/create_quiz_graph" >
+            <argument
+                android:name="quiz"
+                android:defaultValue="@null"
+                app:argType="com.quizzie.quizzieapp.model.domain.Quiz"
+                app:nullable="true" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.quizzie.quizzieapp.ui.main.scan.CameraFragment"
+        android:label="CameraFragment" >
+    </fragment>
+    <navigation
+        android:id="@+id/create_quiz_graph"
+        app:startDestination="@id/createQuizFragment">
+        <fragment
+            android:id="@+id/insertQuesFragment"
+            android:name="com.quizzie.quizzieapp.ui.main.edit_quiz.InsertQuesFragment"
+            android:label="@string/create_ques"
+            tools:layout="@layout/fragment_question_option">
+        </fragment>
+        <fragment
+            android:id="@+id/createQuizFragment"
+            android:name="com.quizzie.quizzieapp.ui.main.edit_quiz.CreateQuizFragment"
+            android:label="@string/create_quiz">
+            <action
+                android:id="@+id/action_createQuizFragment_to_insertQuesFragment"
+                app:destination="@id/insertQuesFragment" />
+            <argument
+                android:name="quiz"
+                android:defaultValue="@null"
+                app:argType="com.quizzie.quizzieapp.model.domain.Quiz"
+                app:nullable="true" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </navigation>
+</navigation>
