@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularSeekbar">
+        <attr name="maxProgress" format="float" />
+        <attr name="progress" format="float" />
+        <attr name="progressTint" format="color"/>
+        <attr name="progressBackgroundTint" format="color"/>
+        <attr name="thickness" format="dimension"/>
+        <attr name="backgroundColor" format="color"/>
+    </declare-styleable>
+</resources>

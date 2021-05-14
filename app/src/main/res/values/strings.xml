@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">QuizzieApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="camera_perm_req">Camera Permission is required for this</string>
+    <string name="allow">Allow</string>
+    <string name="question">Question</string>
+    <string name="options">Options</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="save">Save</string>
+    <string name="questions">Questions</string>
+    <string name="duration_greater_than_0">Duration has to be greater than 0</string>
+    <string name="create_new_quiz">Create new Quiz</string>
+    <string name="insert_a_new_question">Insert a new Question</string>
+    <string name="scan_question_from_paper">Scan question from paper</string>
+    <string name="over">Over</string>
+    <string name="quiz_name">Quiz Name</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="all_quizzes">All Quizzes</string>
+    <string name="create_quiz">Create Quiz</string>
+    <string name="edit_quiz">Edit Quiz</string>
+    <string name="edit_ques">Edit Question</string>
+    <string name="create_ques">Create Question</string>
+    <string name="network_error">No Network Available</string>
+    <string name="unknown_error">An Unknown Error Occurred</string>
+    <string name="duration">%d mins</string>
+
+    <plurals name="question_no">
+        <item quantity="one">%d question</item>
+        <item quantity="other">%d questions</item>
+    </plurals>
+
 </resources>
