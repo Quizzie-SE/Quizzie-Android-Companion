@@ -15,7 +15,10 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,9 +36,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 bind:errorLiveData="@{viewmodel.createQuizViewState.name.error}"
+                bind:maxLength="@{25}"
                 bind:textLiveData="@{viewmodel.createQuizViewState.name.input}"
-                bind:title="@{@string/quiz_name}"
-                bind:maxLength="@{25}"/>
+                bind:title="@{@string/quiz_name}" />
 
             <include
                 android:id="@+id/quiz_date_et"
@@ -48,9 +51,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/quiz_name_et"
                 bind:errorLiveData="@{viewmodel.createQuizViewState.date.error}"
                 bind:icon="@{@drawable/ic_calendar}"
+                bind:maxLength="@{10}"
                 bind:textLiveData="@{viewmodel.createQuizViewState.date.input}"
-                bind:title="@{@string/date}"
-                bind:maxLength="@{10}"/>
+                bind:title="@{@string/date}" />
 
             <include
                 android:id="@+id/quiz_time_et"
@@ -63,9 +66,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/quiz_date_et"
                 bind:errorLiveData="@{viewmodel.createQuizViewState.time.error}"
                 bind:icon="@{@drawable/ic_time}"
+                bind:maxLength="@{10}"
                 bind:textLiveData="@{viewmodel.createQuizViewState.time.input}"
-                bind:title="@{@string/time}"
-                bind:maxLength="@{10}"/>
+                bind:title="@{@string/time}" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -84,20 +87,23 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="32dp"
+                app:backgroundColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/quiz_time_et"
                 app:layout_constraintStart_toStartOf="@+id/quiz_time_et"
                 app:layout_constraintTop_toBottomOf="@+id/quiz_time_et"
                 app:maxProgress="@{60}"
-                tools:progress="20"
+                app:progress="@={Converter.intToFloat(viewmodel.createQuizViewState.duration.input)}"
                 app:thickness="6dp"
-                app:backgroundColor="@color/white"
-                app:progress="@={Converter.intToFloat(viewmodel.createQuizViewState.duration.input)}" />
+                tools:progress="20" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/questions_rv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -114,7 +120,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView3"
-                app:srcCompat="@drawable/ic_plus" />
+                app:srcCompat="@drawable/ic_plus"
+                app:tint="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView8"

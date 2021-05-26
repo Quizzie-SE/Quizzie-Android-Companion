@@ -25,6 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
             android:alpha="@{isOver ? 128 : 255}"
             android:background="?attr/colorSurface"
             android:padding="12dp">

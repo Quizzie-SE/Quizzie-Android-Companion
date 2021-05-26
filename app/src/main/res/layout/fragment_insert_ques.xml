@@ -81,6 +81,7 @@
                     bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(0, isChecked)}"
                     bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(0)}"
                     bind:optionLD="@{viewmodel.insertQuesViewState.options.get(0)}"
+                    bind:optionNo="@{0}"
                     layout="@layout/custom_options_card" />
 
                 <include
@@ -88,6 +89,7 @@
                     bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(1, isChecked)}"
                     bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(1)}"
                     bind:optionLD="@{viewmodel.insertQuesViewState.options.get(1)}"
+                    bind:optionNo="@{1}"
                     layout="@layout/custom_options_card" />
 
                 <include
@@ -95,6 +97,7 @@
                     bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(2, isChecked)}"
                     bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(2)}"
                     bind:optionLD="@{viewmodel.insertQuesViewState.options.get(2)}"
+                    bind:optionNo="@{2}"
                     layout="@layout/custom_options_card" />
 
                 <include
@@ -102,6 +105,7 @@
                     bind:onCheckChangedListener="@{(isChecked) -> viewmodel.selectOption(3, isChecked)}"
                     bind:isSelected="@{viewmodel.insertQuesViewState.correctOption.equals(3)}"
                     bind:optionLD="@{viewmodel.insertQuesViewState.options.get(3)}"
+                    bind:optionNo="@{3}"
                     layout="@layout/custom_options_card" />
 
             </LinearLayout>

@@ -10,6 +10,11 @@
         <variable
             name="optionLD"
             type="androidx.lifecycle.MutableLiveData&lt;String>" />
+
+        <variable
+            name="optionNo"
+            type="int" />
+
         <variable
             name="isSelected"
             type="boolean" />
@@ -61,6 +66,7 @@
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:paddingTop="8dp"
+                    android:hint="@{@string/option(optionNo)}"
                     android:text="@={optionLD}"
                     android:paddingBottom="8dp"
                     android:textColor="@{isSelected ? @color/correctGreen : @color/colorPrimary}"
@@ -75,8 +81,6 @@
                     tools:textColor="@color/colorPrimary" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
