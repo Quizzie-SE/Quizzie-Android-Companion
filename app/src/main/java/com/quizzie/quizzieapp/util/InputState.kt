@@ -12,7 +12,7 @@ class InputState<T>(
     input: T,
     vararg errorConditions: ErrorCondition<T>
 ) {
-    private val isFirstTime = true
+    private var isFirstTime = true
     private var currentError: ErrorCondition<T>? = null
 
     private val errorConditions = errorConditions.toMutableList()
@@ -21,7 +21,11 @@ class InputState<T>(
     val errorEnabled: LiveData<Boolean> = this.error.map { !it.isNullOrBlank() }
 
     init {
+
         this.input.observeForever {
+            if (it != null && !(it is String && it.isEmpty())) {
+                isFirstTime = false
+            }
             for (err in errorConditions) {
                 if (err.condition(it, isFirstTime)) {
                     this.error.value = err.errorMsg
