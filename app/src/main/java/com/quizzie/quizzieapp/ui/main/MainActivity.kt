@@ -1,9 +1,10 @@
 package com.quizzie.quizzieapp.ui.main
 
+import android.content.pm.ActivityInfo
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -12,10 +13,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.databinding.ActivityMainBinding
 import com.quizzie.quizzieapp.util.cast
+
+import com.quizzie.quizzieapp.util.hideSystemUI
+import com.quizzie.quizzieapp.util.showSystemUI
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -35,7 +41,13 @@ class MainActivity : AppCompatActivity() {
             with(R.id.cameraFragment) {
                 if (navDestination.id == this) {
                     supportActionBar?.hide()
-                } else supportActionBar?.show()
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    hideSystemUI()
+                } else {
+                    supportActionBar?.show()
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+                    showSystemUI()
+                }
             }
         }
 
@@ -52,7 +64,8 @@ class MainActivity : AppCompatActivity() {
                 //TODO: Sign Out
                 true
             }
-            else -> false
+            else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

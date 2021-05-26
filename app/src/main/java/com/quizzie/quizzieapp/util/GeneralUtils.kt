@@ -1,15 +1,19 @@
 package com.quizzie.quizzieapp.util
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.format.DateUtils
-import android.view.View
-import android.view.ViewTreeObserver
+import android.view.*
 import androidx.camera.core.ImageProxy
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,8 +25,9 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 val now
-get() = Date().time
+    get() = Date().time
 
 fun showSnackbar(
     anchor: View,
@@ -30,7 +35,6 @@ fun showSnackbar(
 ) = with(snackbar) {
     Snackbar.make(anchor, msg, length)
         .setTextColor(ContextCompat.getColor(anchor.context, android.R.color.white))
-        .setBackgroundTint(ContextCompat.getColor(anchor.context, R.color.colorGrey))
         .setActionTextColor(ContextCompat.getColor(anchor.context, R.color.colorPrimary))
         .setAction(actionName) { action() }
         .show()
@@ -100,7 +104,10 @@ fun Context?.createDatePicker(
     }
 }
 
-fun Context?.createTimePicker(liveData: MutableLiveData<String?>, timeFormat: String): TimePickerDialog {
+fun Context?.createTimePicker(
+    liveData: MutableLiveData<String?>,
+    timeFormat: String
+): TimePickerDialog {
     val dateFormatter = SimpleDateFormat(timeFormat, Locale.getDefault())
     val setDate = Calendar.getInstance().apply {
         try {
@@ -125,13 +132,45 @@ fun Context?.createTimePicker(liveData: MutableLiveData<String?>, timeFormat: St
     }
 }
 
-inline fun View.afterMeasured(crossinline block: () -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                block()
-            }
+inline fun <reified T> MutableLiveData<List<T>>.editListLD(questions: MutableList<T>.() -> Unit) {
+    value = value?.toMutableList()?.apply { this.questions() }
+}
+
+fun Activity.hideSystemUI() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.let {
+            it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            it.hide(WindowInsets.Type.systemBars())
         }
-    })
+    } else {
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+}
+
+fun Activity.showSystemUI() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.let {
+            it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_BARS_BY_TOUCH
+            it.show(WindowInsets.Type.systemBars())
+        }
+    } else {
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_VISIBLE)
+    }
+}
+
+fun Context.vibrate() {
+    val v = getSystemService<Vibrator>()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        v?.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+    } else {
+        v?.vibrate(500)
+    }
 }

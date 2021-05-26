@@ -1,14 +1,19 @@
 package com.quizzie.quizzieapp.ui.main.scan
 
 import android.Manifest
+import android.content.Context
 import android.media.MediaActionSound
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.view.LifecycleCameraController
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.rotationMatrix
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import com.bumptech.glide.load.ImageHeaderParser
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.databinding.FragmentCameraBinding
 import com.quizzie.quizzieapp.service.QuestionsAnalyser
@@ -16,23 +21,48 @@ import com.quizzie.quizzieapp.ui.common.BaseFragment
 import com.quizzie.quizzieapp.util.SETTINGS_PERM_INTENT
 import com.quizzie.quizzieapp.util.Snackbar
 import com.quizzie.quizzieapp.util.showSnackbar
+import com.quizzie.quizzieapp.util.vibrate
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class CameraFragment : BaseFragment() {
+    private var analyser: QuestionsAnalyser? = null
     private lateinit var binding: FragmentCameraBinding
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraPermRequester: ActivityResultLauncher<String>
+    private var hasDispatchedOutput = false
+
+    private val orientationEventListener by lazy {
+        object : OrientationEventListener(context) {
+            override fun onOrientationChanged(orientation: Int) {
+                if (orientation == ImageHeaderParser.UNKNOWN_ORIENTATION) {
+                    return
+                }
+
+                val rotation = when (orientation) {
+                    in 45 until 135 -> Surface.ROTATION_270
+                    in 135 until 225 -> Surface.ROTATION_180
+                    in 225 until 315 -> Surface.ROTATION_90
+                    else -> Surface.ROTATION_0
+                }
+                analyser?.rotation = rotation
+                Timber.d(rotation.toString())
+
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-
         cameraPermRequester =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 if (it) {
@@ -58,13 +88,6 @@ class CameraFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.floatingActionButton2.setOnClickListener{
-            requestPermission()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
@@ -73,14 +96,36 @@ class CameraFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         requestPermission()
+        orientationEventListener.enable()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        orientationEventListener.disable()
     }
 
     private fun startCamera() {
         context?.let { LifecycleCameraController(it) }?.apply {
-            setImageAnalysisAnalyzer(cameraExecutor, QuestionsAnalyser {
-                Timber.d(it)
-            })
+            analyser = QuestionsAnalyser(rotation = 0) {
+                it?.let{
+                    if (!hasDispatchedOutput) {
+                        setFragmentResult(
+                            CAPTURE_VALUE_KEY,
+                            bundleOf("VALUE" to it))
+
+                        hasDispatchedOutput = true
+                        context?.vibrate()
+                        navigator.popBackStack()
+                    }
+                }
+            }
+
+            setImageAnalysisAnalyzer(cameraExecutor, analyser!!)
             bindToLifecycle(viewLifecycleOwner)
+            initializationFuture.addListener({
+                analyser?.cameraInfo = cameraInfo
+            }, ContextCompat.getMainExecutor(context))
+
             binding.previewView.controller = this
             isTapToFocusEnabled = true
             isPinchToZoomEnabled = true

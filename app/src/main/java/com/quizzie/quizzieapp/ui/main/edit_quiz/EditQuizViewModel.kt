@@ -1,10 +1,8 @@
 package com.quizzie.quizzieapp.ui.main.edit_quiz
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.di.Mock
 import com.quizzie.quizzieapp.model.domain.Question
