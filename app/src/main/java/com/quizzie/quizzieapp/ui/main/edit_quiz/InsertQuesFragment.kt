@@ -2,6 +2,7 @@ package com.quizzie.quizzieapp.ui.main.edit_quiz
 
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.setFragmentResultListener
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.navGraphViewModels
 import com.quizzie.quizzieapp.R
@@ -20,6 +21,7 @@ class InsertQuesFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        registerCameraResult()
     }
 
     override fun onCreateView(
@@ -38,19 +40,16 @@ class InsertQuesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        registerCameraResult()
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun registerCameraResult() {
-        parentFragmentManager.setFragmentResultListener(
-            CameraFragment.CAPTURE_VALUE_KEY,
-            viewLifecycleOwner,
-            { key, res ->
-                viewmodel.insertQuesViewState.ques = res.getParcelable(key)
-            }
-        )
+        setFragmentResultListener(
+            CameraFragment.CAPTURE_VALUE_KEY
+        ) { key, res ->
+            viewmodel.insertQuesViewState.ques = res.getParcelable("VALUE")
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -58,11 +57,12 @@ class InsertQuesFragment : BaseFragment() {
         menu.findItem(R.id.save).isVisible = viewmodel.isSaving.value?.not() ?: true
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save) {
             viewmodel.save()
+            return true
         }
-        return false
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initObservers() {

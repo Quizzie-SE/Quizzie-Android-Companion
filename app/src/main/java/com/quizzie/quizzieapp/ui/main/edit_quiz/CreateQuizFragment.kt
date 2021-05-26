@@ -5,6 +5,7 @@ import android.view.*
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +55,7 @@ class CreateQuizFragment : BaseFragment() {
         initObservers()
         initListeners()
 
-        viewmodel.createQuizViewState.quiz = args.quiz
+        args.quiz?.let { viewmodel.initializeQuiz(it) }
     }
 
     private fun initListeners() {
@@ -70,7 +71,6 @@ class CreateQuizFragment : BaseFragment() {
     private fun initRv() = binding.questionsRv.apply {
         adapter = questionsAdapter
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
         questionsAdapter.onClickListener = { viewmodel.selectQuestion(it) }
 
         object : ItemDeleteMoveCallback(context, false, true) {
@@ -87,11 +87,12 @@ class CreateQuizFragment : BaseFragment() {
         menu.findItem(R.id.save).isVisible = viewmodel.isSaving.value?.not() ?: true
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save) {
             viewmodel.save()
+            return true
         }
-        return false
+        return super.onContextItemSelected(item)
     }
 
     private fun initObservers() {
