@@ -13,6 +13,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.quizzie.quizzieapp"
         minSdkVersion 24
