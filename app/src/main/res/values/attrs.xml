@@ -3,9 +3,19 @@
     <declare-styleable name="CircularSeekbar">
         <attr name="maxProgress" format="float" />
         <attr name="progress" format="float" />
-        <attr name="progressTint" format="color"/>
-        <attr name="progressBackgroundTint" format="color"/>
-        <attr name="thickness" format="dimension"/>
-        <attr name="backgroundColor" format="color"/>
+        <attr name="progressTint" format="color" />
+        <attr name="progressBackgroundTint" format="color" />
+        <attr name="thickness" format="dimension" />
+        <attr name="backgroundColor" format="color" />
     </declare-styleable>
+
+<!--    <declare-styleable name="IconCropView">-->
+<!--        <attr name="minimumSide" format="dimension" />-->
+<!--        <attr name="resizeCornerDrawable" format="reference" />-->
+<!--        <attr name="moveCornerDrawable" format="reference" />-->
+<!--        <attr name="cornerColor" format="color" />-->
+<!--        <attr name="edgeColor" format="color" />-->
+<!--        <attr name="outsideCropColor" format="color" />-->
+<!--        <attr name="cornerSize" format="dimension" />-->
+<!--    </declare-styleable>-->
 </resources>

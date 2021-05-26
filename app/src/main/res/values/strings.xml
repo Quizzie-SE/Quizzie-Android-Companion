@@ -26,6 +26,9 @@
     <string name="network_error">No Network Available</string>
     <string name="unknown_error">An Unknown Error Occurred</string>
     <string name="duration">%d mins</string>
+    <string name="item_removed">Item Removed</string>
+    <string name="undo">Undo</string>
+    <string name="option">Option %d</string>
 
     <plurals name="question_no">
         <item quantity="one">%d question</item>
