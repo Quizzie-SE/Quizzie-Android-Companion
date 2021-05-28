@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Theme.QuizzieApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorBlue</item>
@@ -42,11 +43,10 @@
 
     <style name="sign_in_buttos_style_google">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">44dp</item>
         <item name="android:layout_marginTop">84dp</item>
         <item name="android:layout_marginBottom">26dp</item>
         <item name="android:background">@drawable/signin_button</item>
-        <item name="android:foreground">@drawable/ripple</item>
+        <item name="android:foreground">@drawable/ripple2</item>
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:textSize">16sp</item>
     </style>

@@ -3,8 +3,10 @@
     package="com.quizzie.quizzieapp">
 
     <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".QuizzieApp"
@@ -13,10 +15,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.QuizzieApp">
-        <activity android:name=".ui.auth.LoginActivity"></activity>
-        <activity android:name=".ui.main.MainActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        android:theme="@style/Theme.QuizzieApp"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.auth.LoginActivity" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
