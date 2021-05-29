@@ -13,10 +13,13 @@ import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.ImageHeaderParser
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.databinding.FragmentCameraBinding
 import com.quizzie.quizzieapp.service.QuestionsAnalyser
+import com.quizzie.quizzieapp.service.QuestionsParser
 import com.quizzie.quizzieapp.ui.common.BaseFragment
 import com.quizzie.quizzieapp.util.SETTINGS_PERM_INTENT
 import com.quizzie.quizzieapp.util.Snackbar
@@ -25,19 +28,24 @@ import com.quizzie.quizzieapp.util.vibrate
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
+import kotlin.time.ExperimentalTime
 
-
+@FlowPreview
+@ExperimentalTime
 @AndroidEntryPoint
 class CameraFragment : BaseFragment() {
-    private var analyser: QuestionsAnalyser? = null
+    private val viewmodel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraPermRequester: ActivityResultLauncher<String>
-    private var hasDispatchedOutput = false
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(context) {
@@ -52,7 +60,7 @@ class CameraFragment : BaseFragment() {
                     in 225 until 315 -> Surface.ROTATION_90
                     else -> Surface.ROTATION_0
                 }
-                analyser?.rotation = rotation
+                viewmodel.analyser.rotation = rotation
                 Timber.d(rotation.toString())
 
             }
@@ -105,25 +113,25 @@ class CameraFragment : BaseFragment() {
     }
 
     private fun startCamera() {
+        var collectOutputJob: Job? = null
         context?.let { LifecycleCameraController(it) }?.apply {
-            analyser = QuestionsAnalyser(rotation = 0) {
-                it?.let{
-                    if (!hasDispatchedOutput) {
-                        setFragmentResult(
-                            CAPTURE_VALUE_KEY,
-                            bundleOf("VALUE" to it))
+            collectOutputJob = lifecycleScope.launchWhenStarted {
+                viewmodel.analyser.getFlow().collect {
+                    collectOutputJob?.cancel()
+                    setFragmentResult(
+                        CAPTURE_VALUE_KEY,
+                        bundleOf("VALUE" to it)
+                    )
 
-                        hasDispatchedOutput = true
-                        context?.vibrate()
-                        navigator.popBackStack()
-                    }
+                    context?.vibrate()
+                    navigator.popBackStack()
                 }
-            }
+        }
 
-            setImageAnalysisAnalyzer(cameraExecutor, analyser!!)
+            setImageAnalysisAnalyzer(cameraExecutor, viewmodel.analyser)
             bindToLifecycle(viewLifecycleOwner)
             initializationFuture.addListener({
-                analyser?.cameraInfo = cameraInfo
+                viewmodel.analyser.cameraInfo = cameraInfo
             }, ContextCompat.getMainExecutor(context))
 
             binding.previewView.controller = this
