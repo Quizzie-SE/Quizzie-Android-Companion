@@ -2,8 +2,12 @@ package com.quizzie.quizzieapp.service
 
 import com.google.mlkit.vision.text.Text
 import com.quizzie.quizzieapp.model.domain.Question
+import kotlinx.coroutines.CoroutineScope
+import javax.inject.Inject
 
-class QuestionsParserImpl(todo: (Question) -> Unit) : QuestionsParser(todo) {
+class QuestionsParserImpl @Inject constructor(
+    externalScope: CoroutineScope
+): QuestionsParser(externalScope) {
 
     private fun isUnwanted(line: String) = line.trim().startsWith("question", true)
     private fun isOption(line: String) = line.matches(Regex("""\(?\w[.)]\s.*"""))

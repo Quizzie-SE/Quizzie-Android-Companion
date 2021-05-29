@@ -10,18 +10,36 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.quizzie.quizzieapp.model.domain.Question
+import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
+import kotlin.time.ExperimentalTime
+import kotlin.time.milliseconds
+import kotlin.time.seconds
 
+@SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
+@ExperimentalTime
+@FlowPreview
+@ViewModelScoped
 class QuestionsAnalyser(
     var cameraInfo: CameraInfo? = null,
-    var rotation: Int,
-    private val onSuccess: (Question?) -> Unit
+    var rotation: Int = 0,
+    private val parser: QuestionsParserImpl
 ) : ImageAnalysis.Analyzer {
-    private val parser = QuestionsParserImpl(onSuccess)
+
+    @Inject constructor(parser: QuestionsParserImpl) : this(null, 0, parser)
     private val ORIENTATIONS = SparseIntArray()
 
-    @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
+    fun getFlow() = parser.outputFlow
+        .distinctUntilChanged()
+        .debounce(1.2.seconds)
+
     override fun analyze(image: ImageProxy) {
         val mediaImage = image.image
 
