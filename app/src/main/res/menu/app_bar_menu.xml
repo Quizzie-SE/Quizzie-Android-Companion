@@ -2,14 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/signout"
-        android:title="@string/sign_out"
-        app:showAsAction="never" />
+    <group android:id="@+id/clickable_item">
+        <item
+            android:id="@+id/signout"
+            android:title="@string/sign_out"
+            app:showAsAction="never" />
+    </group>
 
-    <item android:id="@+id/save"
-        android:visible="false"
+    <item
+        android:id="@+id/save"
         android:icon="@drawable/ic_app_bar_save_btn"
         android:title="@string/save"
-        app:showAsAction="ifRoom"/>
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/save_progress"
+        app:actionLayout="@layout/progress_layout"
+        android:title="@string/save"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <group android:id="@+id/non_clickable_item">
+        <item
+            android:id="@+id/profile"
+            android:enabled="false"
+            android:title="@string/user"
+            android:visible="true"
+            app:showAsAction="never" />
+    </group>
 
 </menu>
