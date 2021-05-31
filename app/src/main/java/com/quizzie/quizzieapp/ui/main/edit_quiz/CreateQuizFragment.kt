@@ -2,7 +2,10 @@ package com.quizzie.quizzieapp.ui.main.edit_quiz
 
 import android.os.Bundle
 import android.view.*
+import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,11 +18,10 @@ import com.quizzie.quizzieapp.ui.common.BaseFragment
 import com.quizzie.quizzieapp.ui.custom.ItemDeleteMoveCallback
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.Mode
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.OnFragment
-import com.quizzie.quizzieapp.util.DATE_FORMAT
-import com.quizzie.quizzieapp.util.TIME_FORMAT
-import com.quizzie.quizzieapp.util.createDatePicker
-import com.quizzie.quizzieapp.util.createTimePicker
+import com.quizzie.quizzieapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CreateQuizFragment : BaseFragment() {
@@ -84,7 +86,8 @@ class CreateQuizFragment : BaseFragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.save).isVisible = viewmodel.isSaving.value?.not() ?: true
+        menu.findItem(R.id.save).isVisible = viewmodel.isSaving.value == false
+        menu.findItem(R.id.save_progress).isVisible = viewmodel.isSaving.value == true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -104,7 +107,9 @@ class CreateQuizFragment : BaseFragment() {
             questionsAdapter.submitList(it)
         }
 
-        viewmodel.isSaving.observe(viewLifecycleOwner) { baseActivity?.invalidateOptionsMenu() }
+        viewmodel.isSaving.observe(viewLifecycleOwner) {
+            baseActivity?.invalidateOptionsMenu()
+        }
 
         viewmodel.viewEffect.observe(viewLifecycleOwner) {
             when (it) {

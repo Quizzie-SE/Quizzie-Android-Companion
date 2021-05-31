@@ -18,6 +18,8 @@ class QuestionsParserImpl @Inject constructor(
     private fun isCorrectOption(line: String, state: MCQStates.Options): Boolean {
         return isOption(line) && state.optionType.match(state.optionNo, getOptionChar(line) ?: "")
     }
+    private fun hasQnoPrefix(line: String) = line.matches("""\(?\d+([.)])\s.*""".toRegex())
+    private fun removeQnoPrefix(line: String) = line.replaceFirst("""\(?\d+([.)])\s""".toRegex(), "")
 
     override fun parse(line: Text.Line, state: MCQStates, blankLinesBefore: Int): Action {
         val lineText = line.text
@@ -48,14 +50,11 @@ class QuestionsParserImpl @Inject constructor(
 
             is MCQStates.Question -> {
                 if (!isOption(lineText) || question.isBlank()) {
-                    question += if (state.lineNo == 0 &&
-                        lineText.matches("""\(?\d([.)])\s.*""".toRegex())
-                    ) {
-                        lineText.replaceFirst("""\(?\d([.)])\s""".toRegex(), "")
+                    question += if (state.lineNo == 0 && hasQnoPrefix(lineText)) {
+                        removeQnoPrefix(lineText)
                     } else lineText
 
-                    question += "\n".repeat(blankLinesBefore + 1)
-
+                    question += "\n".repeat(blankLinesBefore)
                     state.nextLine()
 
                     if (isOption(lineText)) return Action.LINE_STATE

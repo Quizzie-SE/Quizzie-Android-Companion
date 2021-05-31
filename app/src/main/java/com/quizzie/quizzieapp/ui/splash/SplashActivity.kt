@@ -8,6 +8,8 @@ import android.view.Window
 import android.view.WindowManager
 import com.quizzie.quizzieapp.ui.auth.LoginActivity
 import com.quizzie.quizzieapp.R
+import com.quizzie.quizzieapp.util.hideSystemUI
+import com.quizzie.quizzieapp.util.showSystemUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,10 +19,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
         setContentView(R.layout.activity_splash)
         Handler().postDelayed(
             {
@@ -29,5 +27,17 @@ class SplashActivity : AppCompatActivity() {
             }, SPLASH_TIME_OUT
         )
 
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemUI()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        showSystemUI()
     }
 }

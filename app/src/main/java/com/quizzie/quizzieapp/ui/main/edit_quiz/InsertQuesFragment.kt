@@ -11,6 +11,8 @@ import com.quizzie.quizzieapp.ui.common.BaseFragment
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.Mode
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.OnFragment
 import com.quizzie.quizzieapp.ui.main.scan.CameraFragment
+import com.quizzie.quizzieapp.util.CAPTURE_VALUE_KEY
+import com.quizzie.quizzieapp.util.VALUE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,9 +48,9 @@ class InsertQuesFragment : BaseFragment() {
 
     private fun registerCameraResult() {
         setFragmentResultListener(
-            CameraFragment.CAPTURE_VALUE_KEY
+            CAPTURE_VALUE_KEY
         ) { key, res ->
-            viewmodel.insertQuesViewState.ques = res.getParcelable("VALUE")
+            viewmodel.insertQuesViewState.ques = res.getParcelable(VALUE)
         }
     }
 

@@ -1,41 +1,29 @@
 package com.quizzie.quizzieapp.ui.main.scan
 
 import android.Manifest
-import android.content.Context
-import android.media.MediaActionSound
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.rotationMatrix
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.ImageHeaderParser
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.databinding.FragmentCameraBinding
-import com.quizzie.quizzieapp.service.QuestionsAnalyser
-import com.quizzie.quizzieapp.service.QuestionsParser
 import com.quizzie.quizzieapp.ui.common.BaseFragment
-import com.quizzie.quizzieapp.util.SETTINGS_PERM_INTENT
-import com.quizzie.quizzieapp.util.Snackbar
-import com.quizzie.quizzieapp.util.showSnackbar
-import com.quizzie.quizzieapp.util.vibrate
+import com.quizzie.quizzieapp.ui.common.Snackbar
+import com.quizzie.quizzieapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
 @FlowPreview
@@ -112,6 +100,8 @@ class CameraFragment : BaseFragment() {
         orientationEventListener.disable()
     }
 
+    @FlowPreview
+    @ExperimentalTime
     private fun startCamera() {
         var collectOutputJob: Job? = null
         context?.let { LifecycleCameraController(it) }?.apply {
@@ -120,7 +110,7 @@ class CameraFragment : BaseFragment() {
                     collectOutputJob?.cancel()
                     setFragmentResult(
                         CAPTURE_VALUE_KEY,
-                        bundleOf("VALUE" to it)
+                        bundleOf(VALUE to it)
                     )
 
                     context?.vibrate()
@@ -142,10 +132,6 @@ class CameraFragment : BaseFragment() {
 
     private fun requestPermission() {
         cameraPermRequester.launch(Manifest.permission.CAMERA)
-    }
-
-    companion object {
-        const val CAPTURE_VALUE_KEY = "Capture"
     }
 
 }

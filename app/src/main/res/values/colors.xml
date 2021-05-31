@@ -12,5 +12,6 @@
     <color name="correctGreen">#34A853</color>
     <color name="colorGrey">#828282</color>
     <color name="colorGreyLight">#8E8A8A</color>
-    <color name="deleteColor">#f44336</color>
+    <color name="redColor">#f44336</color>
+    <color name="accentYellow">#FDD835</color>
 </resources>

@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.quizzie.quizzieapp.R
+import timber.log.Timber
 import kotlin.math.*
 
 class CircularSeekbar @JvmOverloads constructor(
@@ -33,16 +34,16 @@ class CircularSeekbar @JvmOverloads constructor(
     var seekBarChangeListener: OnSeekChangeListener? = null
 
     /** The color of the progress ring  */
-    private var circleColor: Paint? = null
+    private var circleColor = Paint()
 
     /** the color of the inside circle. Acts as background color  */
-    private var innerColor: Paint? = null
+    private var innerColor = Paint()
 
     /** The progress circle ring background  */
-    private var circleRing: Paint? = null
+    private var circleRing = Paint()
 
     /** The angle of progress  */
-    private var angle = 0F
+    private var angle = 30F
 
     /** The start angle (12 O'clock  */
     private val startAngle = 270F
@@ -85,7 +86,7 @@ class CircularSeekbar @JvmOverloads constructor(
      * the new progress
      */
     /** The current progress  */
-     var progress = 0F
+     var progress = 50F
         set(progress) {
             if (this.progress != progress) {
                 field = progress
@@ -97,6 +98,7 @@ class CircularSeekbar @JvmOverloads constructor(
                 }
                 seekBarChangeListener?.onProgressChange(this, progress.toInt())
                 CALLED_FROM_ANGLE = false
+                invalidate()
             }
         }
     /**
@@ -201,10 +203,8 @@ class CircularSeekbar @JvmOverloads constructor(
         seekBarChangeListener = object : OnSeekChangeListener {
             override fun onProgressChange(view: CircularSeekbar?, newProgress: Int) {}
         }
-        circleColor = Paint()
-        innerColor = Paint()
-        circleRing = Paint()
-        circleColor?.color = Color.parseColor("#ff33b5e5") // Set default
+
+        circleColor.color = Color.parseColor("#ff33b5e5") // Set default
         // progress
         // color to holo
         // blue.
@@ -270,17 +270,13 @@ class CircularSeekbar @JvmOverloads constructor(
         )
     }
 
-    /*
- * (non-Javadoc)
- *
- * @see android.view.View#onMeasure(int, int)
- */
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
         val size = if (width > height) height else width // Choose the smaller
         // between width and
         // height to make a
         // square
+        
         cx = (width / 2).toFloat() // Center X for circle
         cy = (height / 2).toFloat() // Center Y for circle
         outerRadius = (size / 2).toFloat() // Radius of the outer circle
@@ -302,9 +298,11 @@ class CircularSeekbar @JvmOverloads constructor(
  * @see android.view.View#onDraw(android.graphics.Canvas)
  */
     override fun onDraw(canvas: Canvas) {
-        circleRing?.let { canvas.drawCircle(cx, cy, outerRadius, it) }
-        circleColor?.let { canvas.drawArc(rect, startAngle, angle, true, it) }
-        innerColor?.let { canvas.drawCircle(cx, cy, innerRadius, it) }
+        Timber.d("$outerRadius, $innerRadius, $progress, $angle")
+        canvas.drawCircle(cx, cy, outerRadius, circleRing)
+        canvas.drawArc(rect, startAngle, angle, true, circleColor)
+        canvas.drawCircle(cx, cy, innerRadius, innerColor)
+
         if (SHOW_SEEKBAR) {
             dx = xFromAngle
             dy = yFromAngle
@@ -507,7 +505,9 @@ class CircularSeekbar @JvmOverloads constructor(
 
 
         @BindingAdapter("progress")
-        @JvmStatic fun setProgress(view: CircularSeekbar, progress: Float) { view.progress = progress }
+        @JvmStatic fun setProgress(view: CircularSeekbar, progress: Float) {
+            view.progress = progress
+        }
 
         @InverseBindingAdapter(attribute = "progress")
         @JvmStatic fun getProgress(view: CircularSeekbar) = view.progress

@@ -106,4 +106,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
+
+    //Statistics
+    implementation 'org.nield:kotlin-statistics:1.2.1'
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:3.4.0"
 }

@@ -13,7 +13,7 @@
 
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.QuizzieApp.ActionBarTitleAppearance" parent="TextAppearance.MaterialComponents.Headline6">

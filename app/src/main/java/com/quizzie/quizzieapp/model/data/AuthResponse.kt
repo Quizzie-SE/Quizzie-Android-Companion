@@ -1,4 +1,4 @@
-package com.quizzie.quizzieapp.network.responses
+package com.quizzie.quizzieapp.model.data
 
 import com.quizzie.quizzieapp.model.domain.User
 

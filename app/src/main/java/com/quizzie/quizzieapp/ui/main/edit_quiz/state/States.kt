@@ -1,6 +1,10 @@
 package com.quizzie.quizzieapp.ui.main.edit_quiz.state
 
-enum class Mode{
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Mode : Parcelable {
     CREATE, EDIT
 }
 
