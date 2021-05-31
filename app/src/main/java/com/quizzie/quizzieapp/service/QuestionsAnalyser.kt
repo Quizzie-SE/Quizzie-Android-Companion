@@ -30,7 +30,7 @@ import kotlin.time.seconds
 class QuestionsAnalyser(
     var cameraInfo: CameraInfo? = null,
     var rotation: Int = 0,
-    private val parser: QuestionsParserImpl
+    private val parser: QuestionsParser
 ) : ImageAnalysis.Analyzer {
 
     @Inject constructor(parser: QuestionsParserImpl) : this(null, 0, parser)
