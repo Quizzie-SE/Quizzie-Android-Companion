@@ -29,6 +29,19 @@
     <string name="item_removed">Item Removed</string>
     <string name="undo">Undo</string>
     <string name="option">Option %d</string>
+    <string name="login_now">Login Now</string>
+    <string name="login_started">Login Started</string>
+    <string name="empty_email_pass">Enter Email and Password</string>
+    <string name="invalid_cred">Invalid Credentials</string>
+    <string name="email_not_ver">Please verify your email</string>
+    <string name="user">User</string>
+    <string name="pls_fill_all_fields">Please fill all the fields</string>
+    <string name="email">Email</string>
+    <string name="enter_email">Enter email</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="login">Login</string>
+    <string name="saved_success">Saved Successfully</string>
 
     <plurals name="question_no">
         <item quantity="one">%d question</item>
