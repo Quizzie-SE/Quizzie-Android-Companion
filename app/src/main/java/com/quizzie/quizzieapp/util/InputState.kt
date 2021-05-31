@@ -2,6 +2,7 @@ package com.quizzie.quizzieapp.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import java.text.DateFormat
 import java.text.ParseException
@@ -15,12 +16,15 @@ class InputState<T>(
     private var isFirstTime = true
     private var currentError: ErrorCondition<T>? = null
 
-    private val errorConditions = errorConditions.toMutableList()
     val input: MutableLiveData<T?> = MutableLiveData(input)
     val error = MutableLiveData("")
-    val errorEnabled: LiveData<Boolean> = this.error.map { !it.isNullOrBlank() }
+    val errorEnabled = MutableLiveData(false)
 
     init {
+
+        this.error.distinctUntilChanged().observeForever {
+            errorEnabled.value = !it.isNullOrBlank()
+        }
 
         this.input.observeForever {
             if (it != null && !(it is String && it.isEmpty())) {
@@ -45,8 +49,8 @@ class InputState<T>(
 
     companion object Conditions {
         val TEXT_REQUIRED = ErrorCondition<String>("This field is required")
-        { input, isFirstTime ->
-            input.isNullOrBlank() && !isFirstTime
+        { input, _ ->
+            input.isNullOrBlank()
         }
 
         fun BAD_DATE_FORMAT(format: String) = ErrorCondition<String>(
