@@ -7,6 +7,7 @@ import java.lang.IndexOutOfBoundsException
 
 @Parcelize
 data class Question(
+    var qid: String,
     val question: String,
     val options: List<String>,
     val correctOption: Int

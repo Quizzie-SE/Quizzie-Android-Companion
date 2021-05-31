@@ -26,6 +26,7 @@ class  QuizzieApp: Application() {
 
         _isConnected.value = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+        connectivityManager.registerDefaultNetworkCallback(ConnectivityCallback())
     }
 
     inner class ConnectivityCallback : ConnectivityManager.NetworkCallback() {

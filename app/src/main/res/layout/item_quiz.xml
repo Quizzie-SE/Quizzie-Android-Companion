@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foreground="?attr/selectableItemBackground"
-            android:alpha="@{isOver ? 128 : 255}"
+            android:alpha="@{isOver ? 0.6f : 1}"
             android:background="?attr/colorSurface"
             android:padding="12dp">
 
@@ -61,7 +61,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{!isOver ? utils.getSimpleRelativeDate(context, quiz.quizDate) : @string/over}"
+                android:text="@{!isOver ? utils.getSimpleRelativeDate(context, quiz.scheduledFor) : @string/over}"
                 android:textColor="@color/colorGrey"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView6"

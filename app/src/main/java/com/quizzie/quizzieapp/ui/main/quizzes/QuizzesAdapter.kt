@@ -35,7 +35,7 @@ class QuizzesAdapter(
 
         fun bind(quiz: Quiz) {
             binding.quiz = quiz
-            binding.isOver = Date().time > quiz.quizDate * 1000
+            binding.isOver = Date().time > quiz.scheduledFor
             binding.executePendingBindings()
         }
     }

@@ -1,6 +1,5 @@
 package com.quizzie.quizzieapp.binding
 
-import android.view.View
 import androidx.databinding.InverseMethod
 
 object Converter {

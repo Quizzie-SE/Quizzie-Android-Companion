@@ -3,35 +3,40 @@ package com.quizzie.quizzieapp.ui.main.edit_quiz
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar as FSnackbar
 import com.quizzie.quizzieapp.R
 import com.quizzie.quizzieapp.di.Mock
+import com.quizzie.quizzieapp.di.Production
 import com.quizzie.quizzieapp.model.domain.Question
 import com.quizzie.quizzieapp.model.domain.Quiz
+import com.quizzie.quizzieapp.network.RepoResult
 import com.quizzie.quizzieapp.repository.QuizRepository
 import com.quizzie.quizzieapp.ui.common.BaseViewEffect
-import com.quizzie.quizzieapp.ui.main.edit_quiz.state.CreateQuizViewEffect
+import com.quizzie.quizzieapp.ui.common.Snackbar
+import com.quizzie.quizzieapp.ui.common.StandardErrorHandler
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.CreateQuizViewState
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.InsertQuesViewState
+import com.quizzie.quizzieapp.ui.main.edit_quiz.state.Mode
 import com.quizzie.quizzieapp.ui.main.edit_quiz.state.OnFragment
-import com.quizzie.quizzieapp.ui.main.quizzes.QuizzesFragmentDirections
 import com.quizzie.quizzieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditQuizViewModel @Inject constructor(
     val application: Application,
-    @Mock private val repository: QuizRepository
+    @Production private val repository: QuizRepository
 ) : ViewModel() {
 
     val createQuizViewState = CreateQuizViewState(application)
     val insertQuesViewState = InsertQuesViewState()
     val viewEffect = SingleLiveEvent<BaseViewEffect>()
     val isSaving = MutableLiveData(false)
-    val onFragment = MutableLiveData(OnFragment.CREATE_QUIZ)
+    private val onFragment = MutableLiveData(OnFragment.CREATE_QUIZ)
     private var isViewModelInitialized = false
+    private val errHandler = StandardErrorHandler(viewEffect, application)
 
     init {
         onFragment.observeForever {
@@ -80,7 +85,7 @@ class EditQuizViewModel @Inject constructor(
                         application.getString(R.string.item_removed),
                         application.getString(R.string.undo), {
                             createQuizViewState.questions.editListLD { add(index, removedQuestion) }
-                        }, com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                        }, FSnackbar.LENGTH_LONG
                     )
                 )
             )
@@ -88,10 +93,37 @@ class EditQuizViewModel @Inject constructor(
     }
 
     fun save() {
-        if (onFragment.value == OnFragment.ADD_QUES) {
-            createQuizViewState.questions.editListLD { insertQuesViewState.ques?.let { add(it) } }
+        viewModelScope.launch {
+            if (onFragment.value == OnFragment.ADD_QUES) {
+                if (insertQuesViewState.hasError) {
+                    viewEffect.setValue(BaseViewEffect.ShowSnackBar(Snackbar(application.getString(R.string.pls_fill_all_fields))))
+                    return@launch
+                }
+                createQuizViewState.questions.editListLD { insertQuesViewState.ques?.let { add(it) } }
+                viewEffect.setValue(BaseViewEffect.NavigationPop)
+            } else {
+                if (createQuizViewState.hasError.value == true) return@launch
+                val quiz = createQuizViewState.quiz!!
+                isSaving.value = true
+                val result = if (createQuizViewState.mode.value == Mode.CREATE) {
+                    repository.createQuiz(quiz)
+                } else {
+                    repository.updateQuiz(quiz)
+                }
+
+                if (result is RepoResult.Error) {
+                    errHandler.handle(result.err)
+                } else {
+                    viewEffect.setValue(BaseViewEffect.SetFragmentResult(
+                        EDIT_QUIZ_VALUE_KEY,
+                        "RESULT" to createQuizViewState.mode.value,
+                        "VALUE" to quiz
+                    ))
+                    viewEffect.setValue(BaseViewEffect.NavigationPop)
+                }
+                isSaving.value = false
+            }
         }
-        viewEffect.setValue(BaseViewEffect.NavigationPop)
     }
 
     private fun _selectQuestion(question: Question?) {

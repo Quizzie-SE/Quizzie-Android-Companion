@@ -1,8 +1,11 @@
 package com.quizzie.quizzieapp.model.mapper
 
-interface Mapper <Domain, Data>{
+abstract class Mapper<Domain, Data> {
 
-    fun domainToData(domainModel: Domain): Data
+    abstract fun domainToData(domainModel: Domain): Data
 
-    fun dataToDomain(dataModel: Data): Domain
+    abstract fun dataToDomain(dataModel: Data): Domain
+
+    fun domainToData(domainModel: List<Domain>): List<Data> = domainModel.map { domainToData(it) }
+    fun dataToDomain(dataModel: List<Data>): List<Domain> = dataModel.map { dataToDomain(it) }
 }
