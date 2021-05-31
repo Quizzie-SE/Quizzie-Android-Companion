@@ -2,6 +2,7 @@ package com.quizzie.quizzieapp.ui.main.edit_quiz
 
 import android.os.Bundle
 import android.view.*
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import com.quizzie.quizzieapp.ui.main.edit_quiz.state.OnFragment
 import com.quizzie.quizzieapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CreateQuizFragment : BaseFragment() {

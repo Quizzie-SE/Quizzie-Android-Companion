@@ -1,8 +1,10 @@
 package com.quizzie.quizzieapp.ui.main
 
+import android.app.Fragment
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -24,6 +26,7 @@ import com.quizzie.quizzieapp.util.hideSystemUI
 import com.quizzie.quizzieapp.util.showSnackbar
 import com.quizzie.quizzieapp.util.showSystemUI
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,11 +43,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.mainToolbar)
+
         navigator?.let {
-            binding.mainToolbar.setupWithNavController(
-                it,
-                AppBarConfiguration(it.graph)
-            )
+            binding.mainToolbar.setupWithNavController(it, AppBarConfiguration(it.graph))
         }
 
         initObservers()
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             if (!it) {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             }
         }
 
