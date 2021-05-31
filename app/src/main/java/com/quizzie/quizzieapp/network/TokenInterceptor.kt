@@ -1,14 +1,15 @@
 package com.quizzie.quizzieapp.network
 
 import com.quizzie.quizzieapp.repository.pref.SessionManager
-import com.quizzie.quizzieapp.util.BACKEND_AUTH_TOKEN_TYPE
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+import javax.inject.Inject
 
-class TokenInterceptor : Interceptor {
-    private lateinit var sessionManager: SessionManager
+class TokenInterceptor @Inject constructor(
+    private val sessionManager: SessionManager
+): Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val original: Request = chain.request()
@@ -17,8 +18,8 @@ class TokenInterceptor : Interceptor {
             .header("Accept", "application/json")
             .header("Content-type", "application/json")
             .header(
-                "Authorization",
-                "$BACKEND_AUTH_TOKEN_TYPE ${sessionManager.authToken?.accessToken}"
+                "auth-token",
+                "${sessionManager.authToken}"
             )
             .method(original.method, original.body)
         val request: Request = requestBuilder.build()

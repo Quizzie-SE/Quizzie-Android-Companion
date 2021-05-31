@@ -4,26 +4,33 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.MainThread
+import androidx.core.graphics.rotationMatrix
 import com.google.gson.Gson
-import com.quizzie.quizzieapp.model.domain.AuthToken
+import com.quizzie.quizzieapp.model.domain.User
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SessionManager @SuppressLint("CommitPrefEdits") @MainThread constructor(context: Context) {
-    private val gson: Gson = Gson()
+@Singleton
+class SessionManager @Inject @SuppressLint("CommitPrefEdits") constructor(
+    @ApplicationContext context: Context,
+    private val gson: Gson
+) {
     private val pref: SharedPreferences
     private val editor: SharedPreferences.Editor
     private val _authStateNotifier = MutableStateFlow(false)
-    val authStateNotifier: StateFlow<Boolean> = _authStateNotifier
+    val authStateNotifier: StateFlow<Boolean>
+        get() = _authStateNotifier
 
-    private val _authToken: AuthToken?
+    private val _authToken: String?
         get() {
-            val json: String? = pref.getString(AUTH_TOKEN, "")
-            return gson.fromJson(json, AuthToken::class.java)
+            return pref.getString(AUTH_TOKEN, "")
         }
 
-    val authToken: AuthToken?
+    val authToken: String?
         get() {
             val token = _authToken
             if (token == null) {
@@ -34,32 +41,31 @@ class SessionManager @SuppressLint("CommitPrefEdits") @MainThread constructor(co
 
     val authState: Boolean
         get() {
-            val authToken: AuthToken? = _authToken
+            val authToken: String? = _authToken
             return authToken != null
         }
 
-//    val userDetails: User
-//        get() {
-//            val json: String = pref.getString(USER, "")
-//            val user: User = gson.fromJson(json, User::class.java)
-//            if (user == null) {
-//                addToken(null)
-//            }
-//            return user
-//        }
-//
-//    fun addUserDetails(user: User?) {
-//        val json: String = gson.toJson(user)
-//        editor.putString(USER, json)
-//        editor.commit()
-//        if (user == null) {
-//            addToken(null)
-//        }
-//    }
+    val userDetails: User?
+        get() {
+            val json: String? = pref.getString(USER, "")
+            val user: User? = gson.fromJson(json, User::class.java)
+            if (user == null) {
+                truncateSession()
+            }
+            return user
+        }
 
-    fun addToken(token: AuthToken?) {
-        val json: String = gson.toJson(token)
-        editor.putString(AUTH_TOKEN, json)
+    fun addUserDetails(user: User?) {
+        val json: String = gson.toJson(user)
+        editor.putString(USER, json)
+        editor.commit()
+        if (user == null) {
+            truncateSession()
+        }
+    }
+
+    fun addToken(token: String?) {
+        editor.putString(AUTH_TOKEN, token)
         editor.commit()
         _authStateNotifier.value = token != null
     }

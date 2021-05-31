@@ -9,3 +9,7 @@ annotation class Mock
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class Production
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class DispatcherIO
