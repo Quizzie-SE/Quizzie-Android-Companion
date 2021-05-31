@@ -12,13 +12,10 @@ import android.os.Vibrator
 import android.text.format.DateUtils
 import android.view.*
 import androidx.camera.core.ImageProxy
-import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.material.snackbar.Snackbar
-import com.quizzie.quizzieapp.R
 import timber.log.Timber
 import java.nio.ByteBuffer
 import java.text.ParseException
@@ -28,17 +25,6 @@ import java.util.*
 
 val now
     get() = Date().time
-
-fun showSnackbar(
-    anchor: View,
-    snackbar: com.quizzie.quizzieapp.util.Snackbar
-) = with(snackbar) {
-    Snackbar.make(anchor, msg, length)
-        .setTextColor(ContextCompat.getColor(anchor.context, android.R.color.white))
-        .setActionTextColor(ContextCompat.getColor(anchor.context, R.color.colorPrimary))
-        .setAction(actionName) { action() }
-        .show()
-}
 
 fun imageProxyToBitmap(image: ImageProxy): Bitmap? {
     val planeProxy = image.planes[0]
@@ -50,13 +36,15 @@ fun imageProxyToBitmap(image: ImageProxy): Bitmap? {
 
 fun MediatorLiveData<Boolean>.addSource(vararg source: LiveData<Boolean>) {
     source.forEach { s ->
-        addSource(s) { value = source.toList().any { it.value ?: false } }
+        addSource(s) {
+            value = source.toList().any { it.value ?: false }
+        }
     }
 }
 
-fun getSimpleRelativeDate(context: Context, unix: Long) = DateUtils.getRelativeDateTimeString(
+fun getSimpleRelativeDate(context: Context, ms: Long) = DateUtils.getRelativeDateTimeString(
     context,
-    unix * 1000,
+    ms,
     DateUtils.MINUTE_IN_MILLIS,
     DateUtils.WEEK_IN_MILLIS,
     0

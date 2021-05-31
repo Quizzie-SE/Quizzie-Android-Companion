@@ -19,7 +19,7 @@ abstract class ItemDeleteMoveCallback(
     private val intrinsicWidth = deleteIcon?.intrinsicWidth?.times(2)
     private val intrinsicHeight = deleteIcon?.intrinsicHeight
     private val background = ColorDrawable()
-    private val backgroundColor = context.getColor(R.color.deleteColor)
+    private val backgroundColor = context.getColor(R.color.redColor)
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
     override fun isItemViewSwipeEnabled(): Boolean {

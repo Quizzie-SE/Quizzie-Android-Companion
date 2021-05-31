@@ -7,8 +7,9 @@ import com.quizzie.quizzieapp.util.InputState
 import com.quizzie.quizzieapp.util.addSource
 
 class InsertQuesViewState {
-    var ques: Question?
-    get() = Question(
+    var ques: Question? = null
+        get() = Question(
+        field?.qid ?: "",
         question.input.value ?: "",
         options.map { it.value ?: "" },
         correctOption.value ?: 0
@@ -16,8 +17,9 @@ class InsertQuesViewState {
     set(value){
         question.input.value = value?.question ?: ""
         correctOption.value = value?.correctOption ?: 0
-        options.forEachIndexed { index, data -> data.value = value?.options?.get(index) ?: "" }
+        options.forEachIndexed { index, data -> data.value = value?.options?.get(index)?.trim() ?: "" }
         mode.value = if (value == null) Mode.CREATE else Mode.EDIT
+        field = value
     }
 
     val question = InputState("", InputState.TEXT_REQUIRED)
@@ -25,10 +27,7 @@ class InsertQuesViewState {
     val options = MutableList<MutableLiveData<String>>(4) { MutableLiveData("") }
     val mode = MutableLiveData(Mode.CREATE)
 
-    val hasError = MediatorLiveData<Boolean>()
-
-    init {
-        hasError.addSource(question.errorEnabled)
-    }
+    val hasError: Boolean
+    get() = question.errorEnabled.value == true || options.any { it.value.isNullOrBlank() }
 
 }

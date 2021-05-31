@@ -20,7 +20,7 @@ class QuestionsAdapter(
     }
 
     override fun onBindViewHolder(holder: QuestionsVH, position: Int) {
-        holder.bind(getItem(position).question, position)
+        holder.bind(getItem(position).question)
     }
 
     inner class QuestionsVH(private val binding: ItemQuestionBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -29,9 +29,8 @@ class QuestionsAdapter(
             itemView.setOnClickListener { onClickListener(adapterPosition) }
         }
 
-        fun bind(ques: String, index: Int) {
+        fun bind(ques: String) {
             binding.question = ques
-            binding.number = index + 1
             binding.executePendingBindings()
         }
     }

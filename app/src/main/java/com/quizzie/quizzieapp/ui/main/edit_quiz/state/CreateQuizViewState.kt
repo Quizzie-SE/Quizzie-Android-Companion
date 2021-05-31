@@ -9,20 +9,22 @@ import com.quizzie.quizzieapp.model.domain.Quiz
 import com.quizzie.quizzieapp.util.*
 
 class CreateQuizViewState(context: Context) {
-    var quiz: Quiz?
+    var quiz: Quiz? = null
     get() = Quiz(
+        field?.quizId ?: "",
         name.input.value ?: "",
-        (date.input.value + time.input.value).toLongDate("$DATE_FORMAT $TIME_FORMAT") ?: 0,
+        (date.input.value + " " + time.input.value).toLongDate("$DATE_FORMAT $TIME_FORMAT") ?: 0,
         duration.input.value?.toLong() ?: 0,
         questions.value ?: listOf()
     )
     set(value) {
         name.input.value = value?.quizName ?: ""
-        date.input.value = (value?.quizDate ?: now).toDate(DATE_FORMAT)
-        time.input.value = (value?.quizDate ?: now).toDate(TIME_FORMAT)
-        duration.input.value = value?.duration?.toInt() ?: 15
+        date.input.value = (value?.scheduledFor ?: now).toDate(DATE_FORMAT)
+        time.input.value = (value?.scheduledFor ?: now).toDate(TIME_FORMAT)
+        duration.input.value = value?.quizDuration?.toInt() ?: 15
         questions.value = value?.questions ?: listOf()
         mode.value = if (value == null) Mode.CREATE else Mode.EDIT
+        field = value
     }
 
     val name = InputState("", InputState.TEXT_REQUIRED)
@@ -37,7 +39,9 @@ class CreateQuizViewState(context: Context) {
     val hasError = MediatorLiveData<Boolean>()
 
     init {
+        hasError.value = false
         hasError.addSource(name.errorEnabled, date.errorEnabled, time.errorEnabled, duration.errorEnabled)
+        hasError.observeForever {  }
     }
 
 }
