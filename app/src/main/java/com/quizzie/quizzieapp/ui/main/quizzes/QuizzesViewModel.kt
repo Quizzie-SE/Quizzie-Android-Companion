@@ -1,5 +1,6 @@
 package com.quizzie.quizzieapp.ui.main.quizzes
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.view.Display
 import androidx.lifecycle.AndroidViewModel
@@ -13,6 +14,7 @@ import com.quizzie.quizzieapp.di.Production
 import com.quizzie.quizzieapp.isConnected
 import com.quizzie.quizzieapp.model.domain.Question
 import com.quizzie.quizzieapp.model.domain.Quiz
+import com.quizzie.quizzieapp.model.domain.Quiz.Companion.sort
 import com.quizzie.quizzieapp.network.RepoResult
 import com.quizzie.quizzieapp.repository.QuizRepository
 import com.quizzie.quizzieapp.ui.common.BaseViewEffect
@@ -57,6 +59,7 @@ class QuizzesViewModel @Inject constructor(
     fun selectQuiz(quiz: Quiz) = _selectQuiz(quiz)
     fun selectQuiz(index: Int) = _selectQuiz(quizzes.value?.get(index))
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun fetchAllQuizzes() {
         quizzesJob?.cancel()
         quizzesJob = viewModelScope.launch {
@@ -114,9 +117,10 @@ class QuizzesViewModel @Inject constructor(
                 removeIf { quiz.quizId == it.quizId }
             }
             add(quiz)
-            sortBy { (it.scheduledFor - now).let { if (it > 0) it else Long.MAX_VALUE } }
+            val sorted = sort()
+            clear()
+            addAll(sorted)
         }
         viewEffect.setValue(BaseViewEffect.ShowSnackBar(Snackbar(application.getString(R.string.saved_success))))
     }
-
 }

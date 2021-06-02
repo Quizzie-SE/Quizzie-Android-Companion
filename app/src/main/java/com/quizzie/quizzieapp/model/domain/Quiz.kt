@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
 import com.quizzie.quizzieapp.model.data.UpdateOps
 import com.quizzie.quizzieapp.model.data.UpdateResponse
+import com.quizzie.quizzieapp.util.now
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,7 +19,7 @@ data class Quiz(
     var quizType: QuizType = QuizType.Public
 ) : Parcelable {
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Quiz>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Quiz>() {
             override fun areItemsTheSame(oldItem: Quiz, newItem: Quiz): Boolean {
                 return oldItem.quizName == newItem.quizName
             }
@@ -27,12 +28,20 @@ data class Quiz(
                 return oldItem == newItem
             }
         }
+
+        fun List<Quiz>.sort() = { it: Quiz -> (it.scheduledFor - now) > 0 }.let { filter ->
+            filter(filter).sortedBy { it.scheduledFor - now } +
+                    filterNot(filter).sortedBy { it.scheduledFor - now }
+        }
     }
 
-    fun getUpdateResponse() = UpdateOps(listOf(
-        UpdateResponse("quizName", quizName),
-        UpdateResponse("scheduledFor", scheduledFor),
-        UpdateResponse("quizDuration", quizDuration)
-    ))
+    fun getUpdateResponse() = UpdateOps(
+        listOf(
+            UpdateResponse("quizName", quizName),
+            UpdateResponse("scheduledFor", scheduledFor),
+            UpdateResponse("quizDuration", quizDuration),
+            UpdateResponse("quizType", quizType)
+        )
+    )
 
 }

@@ -34,6 +34,7 @@ class EditQuizViewModel @Inject constructor(
     val insertQuesViewState = InsertQuesViewState()
     val viewEffect = SingleLiveEvent<BaseViewEffect>()
     val isSaving = MutableLiveData(false)
+    private var selectedIndex: Int? = null
     private val onFragment = MutableLiveData(OnFragment.CREATE_QUIZ)
     private var isViewModelInitialized = false
     private val errHandler = StandardErrorHandler(viewEffect, application)
@@ -99,7 +100,14 @@ class EditQuizViewModel @Inject constructor(
                     viewEffect.setValue(BaseViewEffect.ShowSnackBar(Snackbar(application.getString(R.string.pls_fill_all_fields))))
                     return@launch
                 }
-                createQuizViewState.questions.editListLD { insertQuesViewState.ques?.let { add(it) } }
+                createQuizViewState.questions.editListLD {
+                    insertQuesViewState.ques?.let { ques ->
+                        selectedIndex?.also {
+                            removeAt(it)
+                            add(it, ques)
+                        } ?: add(ques)
+                    }
+                }
                 viewEffect.setValue(BaseViewEffect.NavigationPop)
             } else {
                 if (createQuizViewState.hasError.value == true) return@launch
@@ -114,11 +122,13 @@ class EditQuizViewModel @Inject constructor(
                 if (result is RepoResult.Error) {
                     errHandler.handle(result.err)
                 } else {
-                    viewEffect.setValue(BaseViewEffect.SetFragmentResult(
-                        EDIT_QUIZ_VALUE_KEY,
-                        "RESULT" to createQuizViewState.mode.value,
-                        "VALUE" to quiz
-                    ))
+                    viewEffect.setValue(
+                        BaseViewEffect.SetFragmentResult(
+                            EDIT_QUIZ_VALUE_KEY,
+                            "RESULT" to createQuizViewState.mode.value,
+                            "VALUE" to quiz
+                        )
+                    )
                     viewEffect.setValue(BaseViewEffect.NavigationPop)
                 }
                 isSaving.value = false
@@ -128,6 +138,8 @@ class EditQuizViewModel @Inject constructor(
 
     private fun _selectQuestion(question: Question?) {
         insertQuesViewState.ques = question
+        selectedIndex = createQuizViewState.questions.value?.indexOf(question)
+        if (selectedIndex == -1) selectedIndex = null
         viewEffect.setValue(
             BaseViewEffect.NavigateTo(
                 CreateQuizFragmentDirections.actionCreateQuizFragmentToInsertQuesFragment()
