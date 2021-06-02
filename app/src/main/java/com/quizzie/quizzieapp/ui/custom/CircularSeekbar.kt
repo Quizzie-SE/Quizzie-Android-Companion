@@ -262,11 +262,11 @@ class CircularSeekbar @JvmOverloads constructor(
     private fun initDrawable() {
         progressMark = BitmapFactory.decodeResource(
             mContext.resources,
-            R.drawable.ic_circle
+            R.drawable.ic_thumb
         )
         progressMarkPressed = BitmapFactory.decodeResource(
             mContext.resources,
-            R.drawable.ic_circle
+            R.drawable.ic_thumb
         )
     }
 
