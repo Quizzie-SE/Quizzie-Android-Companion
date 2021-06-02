@@ -11,7 +11,7 @@
         android:label="@string/all_quizzes">
         <action
             android:id="@+id/action_quizzesFragment_to_create_quiz_graph"
-            app:destination="@id/create_quiz_graph" >
+            app:destination="@id/create_quiz_graph">
             <argument
                 android:name="quiz"
                 android:defaultValue="@null"

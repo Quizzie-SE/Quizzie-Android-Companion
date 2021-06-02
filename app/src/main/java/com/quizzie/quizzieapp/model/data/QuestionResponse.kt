@@ -9,11 +9,11 @@ data class QuestionResponse(
     val options: List<OptionResponse>,
     val correctAnswer: String
 ) {
-    fun getUpdateResponse() = listOf(
+    fun getUpdateResponse() = UpdateOps(listOf(
         UpdateResponse("description", description),
         UpdateResponse("options", options),
         UpdateResponse("correctAnswer", correctAnswer),
-    )
+    ))
 }
 
 data class OptionResponse(val text: String)

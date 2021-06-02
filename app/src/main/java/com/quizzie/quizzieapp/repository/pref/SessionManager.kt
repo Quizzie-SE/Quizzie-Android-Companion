@@ -84,7 +84,6 @@ class SessionManager @Inject @SuppressLint("CommitPrefEdits") constructor(
     }
 
     init {
-        Timber.d("SessionManager:")
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         _authStateNotifier.value = authState
         editor = pref.edit()

@@ -42,6 +42,7 @@
     <string name="enter_password">Enter password</string>
     <string name="login">Login</string>
     <string name="saved_success">Saved Successfully</string>
+    <string name="private_str">Private</string>
 
     <plurals name="question_no">
         <item quantity="one">%d question</item>
