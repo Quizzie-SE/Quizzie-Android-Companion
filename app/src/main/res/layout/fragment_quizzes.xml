@@ -44,6 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:itemCount="20"
+                android:clipToPadding="false"
+                android:paddingBottom="88dp"
                 tools:listitem="@layout/item_quiz" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -17,8 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingTop="12dp"
         android:clipToPadding="false"
-        android:paddingBottom="28dp">
+        android:paddingBottom="120dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,7 +92,7 @@
                 app:backgroundColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/quiz_time_et"
                 app:layout_constraintStart_toStartOf="@+id/quiz_time_et"
-                app:layout_constraintTop_toBottomOf="@+id/quiz_time_et"
+                app:layout_constraintTop_toBottomOf="@+id/switch1"
                 app:maxProgress="@{60}"
                 app:progress="@={Converter.intToFloat(viewmodel.createQuizViewState.duration.input)}"
                 app:thickness="6dp"
@@ -112,13 +114,13 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/insert_a_new_question"
                 android:foreground="@drawable/circular_ripple"
                 android:onClick="@{() -> viewmodel.createNewQuestion()}"
-                android:padding="4dp"
+                android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView3"
@@ -135,6 +137,39 @@
                 app:layout_constraintEnd_toEndOf="@+id/circular_seekbar"
                 app:layout_constraintStart_toStartOf="@+id/circular_seekbar"
                 app:layout_constraintTop_toTopOf="@+id/circular_seekbar" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_circle"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="8dp"
+                android:text="@{String.valueOf(viewmodel.createQuizViewState.questions.size())}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                tools:text="10" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checked="@={Converter.quizTypeToBool(viewmodel.createQuizViewState.type)}"
+                android:text="@string/private_str"
+                android:textColor="@color/colorGrey"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/quiz_time_et"
+                app:layout_constraintTop_toBottomOf="@+id/quiz_time_et"
+                app:switchMinWidth="56dp"
+                app:switchPadding="8dp"
+                tools:checked="true" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
