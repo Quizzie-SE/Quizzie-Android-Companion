@@ -36,7 +36,7 @@ interface BackendService {
     @PATCH("/question/update/{questionId}")
     suspend fun updateQuestion(
         @Path("questionId") questionId: String,
-        @Body questions: List<UpdateResponse<out Any>>
+        @Body questions: UpdateOps
     )
 
     @DELETE("/question/{questionId}")

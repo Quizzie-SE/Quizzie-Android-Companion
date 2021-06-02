@@ -4,19 +4,18 @@ package com.quizzie.quizzieapp.repository.impl
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.quizzie.quizzieapp.di.DispatcherIO
+import com.quizzie.quizzieapp.model.data.QuestionResponse
 import com.quizzie.quizzieapp.model.domain.Question
 import com.quizzie.quizzieapp.model.domain.Quiz
+import com.quizzie.quizzieapp.model.domain.Quiz.Companion.sort
 import com.quizzie.quizzieapp.model.mapper.QuestionsMapper
 import com.quizzie.quizzieapp.network.BackendService
 import com.quizzie.quizzieapp.network.RepoResult
 import com.quizzie.quizzieapp.network.safeApiCall
 import com.quizzie.quizzieapp.repository.QuizRepository
 import com.quizzie.quizzieapp.util.now
-import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.*
 import kotlinx.coroutines.NonCancellable.isActive
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.coroutineContext
@@ -73,15 +72,16 @@ class QuizRepositoryImpl @Inject constructor(
             }
 
             originalQuiz.questions.forEach { ques ->
-                if (quiz.questions.find { it.qid ==  ques.qid} == null) {
-                    backendService.deleteQuestion(ques.qid)
+                if (quiz.questions.find { it.qid == ques.qid } == null) {
+                    launch { backendService.deleteQuestion(ques.qid) }
                 }
             }
 
             if (
                 quiz.quizName != originalQuiz.quizName ||
                 quiz.scheduledFor != originalQuiz.scheduledFor ||
-                quiz.quizDuration != originalQuiz.quizDuration
+                quiz.quizDuration != originalQuiz.quizDuration ||
+                quiz.quizType != originalQuiz.quizType
             ) {
                 launch { backendService.updateQuiz(quiz.quizId, quiz.getUpdateResponse()) }
             }
@@ -89,11 +89,17 @@ class QuizRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllQuizzes() = safeApiCall {
-        backendService.getAllQuizzes().result.onEach {
-            it.questions = questionsMapper.dataToDomain(
-                backendService.getAllQuestions(it.quizId).result
-            )
-        }.sortedBy{  (it.scheduledFor - now).let { if (it > 0) it else Long.MAX_VALUE } }
+        coroutineScope {
+            val quizzes = backendService.getAllQuizzes().result
+
+            quizzes.map {
+                async { backendService.getAllQuestions(it.quizId).result }
+            }.awaitAll().forEachIndexed { i, q ->
+                quizzes[i].questions = questionsMapper.dataToDomain(q)
+            };
+
+            quizzes.sort()
+        }
     }
 
     private suspend fun <T> safeApiCall(call: suspend () -> T) = safeApiCall(dispatcher, call)
