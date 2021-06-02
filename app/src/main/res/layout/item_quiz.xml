@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.quizzie.quizzieapp.util.GeneralUtilsKt"
             alias="utils"/>
+        <import type="com.quizzie.quizzieapp.model.domain.QuizType"/>
 
         <variable
             name="quiz"
@@ -25,16 +27,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackground"
             android:alpha="@{isOver ? 0.6f : 1}"
             android:background="?attr/colorSurface"
-            android:padding="12dp">
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:text="@{quiz.quizName}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
@@ -61,6 +64,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
                 android:text="@{!isOver ? utils.getSimpleRelativeDate(context, quiz.scheduledFor) : @string/over}"
                 android:textColor="@color/colorGrey"
                 android:textStyle="bold"
@@ -68,6 +72,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView5"
                 tools:text="Tomorrow, 19:08" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                android:adjustViewBounds="true"
+                bind:isVisible="@{quiz.quizType == QuizType.Private}"
+                app:tint="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_restriction" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
