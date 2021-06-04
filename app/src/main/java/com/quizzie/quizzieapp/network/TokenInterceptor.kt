@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class TokenInterceptor @Inject constructor(
     private val sessionManager: SessionManager
-): Interceptor {
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val original: Request = chain.request()

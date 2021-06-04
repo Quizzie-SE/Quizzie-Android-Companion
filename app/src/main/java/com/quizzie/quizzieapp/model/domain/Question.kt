@@ -21,7 +21,7 @@ data class Question(
 
 
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Question>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Question>() {
             override fun areItemsTheSame(oldItem: Question, newItem: Question): Boolean {
                 return oldItem.question == newItem.question
             }

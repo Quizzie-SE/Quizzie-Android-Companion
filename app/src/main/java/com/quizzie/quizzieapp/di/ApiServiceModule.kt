@@ -61,7 +61,7 @@ class ApiServiceModule {
 
     @Provides
     fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
-        level =  HttpLoggingInterceptor.Level.BODY
+        level = HttpLoggingInterceptor.Level.BODY
     }
 
 }

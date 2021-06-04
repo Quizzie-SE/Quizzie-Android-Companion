@@ -7,7 +7,7 @@ import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class ContentTypeInterceptor @Inject constructor(): Interceptor {
+class ContentTypeInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val original: Request = chain.request()
