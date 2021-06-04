@@ -1,7 +1,7 @@
 <h1 align="center"> Quizzie App Companion (Android)</h1>
 
 <p align="center"> 
-	Android client for <a href="https://github.com/CodeChefVIT/Quizzie">Quizzie</a>
+	Android client for <a href="https://github.com/Quizzie-SE">Quizzie</a>
 </p>
 
 &nbsp;&nbsp;&nbsp; [![Android-master Actions Status](https://github.com/Quizzie-SE/Quizzie-Android-Companion/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Quizzie-SE/Quizzie-Android-Companion/actions) &nbsp;&nbsp;&nbsp;[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ACM-VIT/ACM-internals-Android/blob/main/LICENSE) &nbsp;&nbsp;&nbsp; [![Figma Designs](https://img.shields.io/badge/Design-Figma-important)](https://www.figma.com/file/DVmaGUkqTTvJ2VQEaDfJGK/Quizzie-Android?node-id=0%3A1)
@@ -9,6 +9,8 @@
 # Quizzie
 
 This project is a complete online quiz management platform with a plethora of features for teachers and students. It provides all the basic functionalities of a quiz portal like timer, scoring, ranking etc. alongside analysis of results from the students on the teacher dashboard, summary of tests for the student, Login and signup using a Google account for both teacher and student. It provides a smooth user interface for both the teachers and students to create and attempt different kinds of quizzes seamlessly. 
+<br><br>
+Quizzie Android app allows as an extension to the organizer's side of the website to allow them to add questions by capturing it from a book or elsewhere just to make the process of adding questions simpler for teachers
 
 ---
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/10968840/SzzoZF12)
@@ -17,8 +19,15 @@ This project is a complete online quiz management platform with a plethora of fe
 ## Motivation
   The motivation of this project came from the idea to help teachers and institute administrators create quizzes and tests in an efficient manner. With the popularity of the Internet, it is inevitable to have online quizzes as classroom assessments. In learning, online quizzes may serve two objectives, that is, for self-study or as a formal assessment. The online quiz has its advantages, such as saving the cost of paper printing and reducing the time spent for having assessments in class. However, there are weaknesses. Its primary drawback is the issue of academic dishonesty, especially when students are answering online quiz.
 
+
+### [Android APK - Open this link in the Android device to install the app](https://drive.google.com/file/d/1xkUSU42fkIFWYrAX0bFsM6yKXx7bJ1--/view?usp=sharing)
+
+
 ## Screenshots
 ![Quizzie Screenshots](screenshots/quizzie_app.png)
+
+## How is the app built?
+This app is coded natively using MVVM(Model View - View Model) architecture in Kotlin. It is built in Android Studio.
 
 ## Structure
 
@@ -32,7 +41,21 @@ This project is a complete online quiz management platform with a plethora of fe
 * `app/src/main/java` - java source directory
 * `app/src/main/res` - resources directory
 
+## Features
 
+* An organizer can create a quiz, add questions to it and publish them
+* Organizer can add questions from a book by capturing it from the Android device
+* The text recognition module automatically captures the text from the image
+* There is no capture button to capture the image. It automatically captures after the text is recognized
+* The question can be edited anytime and the changes to the text can be entered manually as well.
+* The quiz after it is saved is made available for the students to attend from the website.
+
+## Execution
+
+* This github repositority can be cloned using "git clone <github_link>" command
+* Android Studio has to be installed (Version > 4.0)
+* The cloned repo in the local PC should be opened using Android Studio
+* Follow the unpacking instructions below to execute the build and run the app
 
 ## Unpacking
 
@@ -92,6 +115,40 @@ This analyses the code and produces reports containing warnings about your
 application in `build/outputs/lint/`.
 
 	gradle lint
+
+## Contributors
+<table>
+<tr align="center">
+
+<td>
+Amit Krishna A
+<p align="center">
+<img src = "https://i.ibb.co/DwLYR0X/amit.png" width="150" height="150" alt="Amit Krishna A (Insert Your Image Link In Src">
+</p>
+<p align="center">
+<a href = "https://github.com/akri16"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36"/></a>
+<a href = "https://www.linkedin.com/in/akri16/">
+<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
+</a>
+</p>
+</td>
+
+<td>
+Dinesh B S
+<p align="center">
+<img src = "https://i.ibb.co/kxLPy5G/dinesh-pic.jpg" width="150" height="150" alt="Dinesh B S (Insert Your Image Link In Src">
+</p>
+<p align="center">
+<a href = "https://github.com/DineshBS44"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36"/></a>
+<a href = "https://www.linkedin.com/in/dinesh-b-s-197983192/">
+<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
+</a>
+</p>
+</td>
+
+</tr>
+  </table>
+
 
 ## Further reading
 

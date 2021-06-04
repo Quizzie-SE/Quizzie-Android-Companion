@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val isPending = AtomicBoolean(false)
+
     @MainThread
     override fun setValue(value: T) {
         isPending.compareAndSet(false, true)
