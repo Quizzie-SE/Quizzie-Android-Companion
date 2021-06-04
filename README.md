@@ -19,10 +19,8 @@ Quizzie Android app allows as an extension to the organizer's side of the websit
 ## Motivation
   The motivation of this project came from the idea to help teachers and institute administrators create quizzes and tests in an efficient manner. With the popularity of the Internet, it is inevitable to have online quizzes as classroom assessments. In learning, online quizzes may serve two objectives, that is, for self-study or as a formal assessment. The online quiz has its advantages, such as saving the cost of paper printing and reducing the time spent for having assessments in class. However, there are weaknesses. Its primary drawback is the issue of academic dishonesty, especially when students are answering online quiz.
 
-<br>
 
 ### [Android APK - Open this link in the Android device to install the app](https://drive.google.com/file/d/1xkUSU42fkIFWYrAX0bFsM6yKXx7bJ1--/view?usp=sharing)
-<br>
 
 
 ## Screenshots
