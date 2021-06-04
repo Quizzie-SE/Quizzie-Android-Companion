@@ -14,7 +14,10 @@ class QuestionsMapper @Inject constructor() : Mapper<Question, QuestionResponse>
 
     override fun dataToDomain(dataModel: QuestionResponse) = with(dataModel) {
         Question(
-            _id, description, options.map { it.text }, options.indexOfFirst{ it.text == correctAnswer }
+            _id,
+            description,
+            options.map { it.text },
+            options.indexOfFirst { it.text == correctAnswer }
         )
     }
 

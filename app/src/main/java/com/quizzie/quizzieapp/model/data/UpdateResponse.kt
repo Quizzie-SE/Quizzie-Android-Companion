@@ -1,6 +1,6 @@
 package com.quizzie.quizzieapp.model.data
 
-data class UpdateResponse<T> (
+data class UpdateResponse<T>(
     val propName: String,
     val value: T
 )

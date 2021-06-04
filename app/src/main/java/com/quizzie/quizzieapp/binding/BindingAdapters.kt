@@ -60,5 +60,6 @@ fun setVisibilityGone(v: View, isGone: Boolean) {
 @BindingAdapter("isDrawableVisble")
 fun setDrawableVisibility(fab: FloatingActionButton, isVisible: Boolean) {
     fab.setImageDrawable(ColorDrawable(fab.context?.let { it1 ->
-        ContextCompat.getColor(it1, android.R.color.transparent) } ?: 0 ))
+        ContextCompat.getColor(it1, android.R.color.transparent)
+    } ?: 0))
 }
