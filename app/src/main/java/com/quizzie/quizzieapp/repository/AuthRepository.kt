@@ -9,8 +9,8 @@ import java.lang.Error
 interface AuthRepository {
     suspend fun adminLogin(email: String, password: String): RepoResult<Unit>
 
-    sealed class AuthError: Errors() {
-        object InvalidCred: AuthError()
-        object EmailUnver: AuthError()
+    sealed class AuthError : Errors() {
+        object InvalidCred : AuthError()
+        object EmailUnver : AuthError()
     }
 }

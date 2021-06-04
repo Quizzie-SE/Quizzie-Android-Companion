@@ -116,7 +116,7 @@ class CameraFragment : BaseFragment() {
                     context?.vibrate()
                     navigator.popBackStack()
                 }
-        }
+            }
 
             setImageAnalysisAnalyzer(cameraExecutor, viewmodel.analyser)
             bindToLifecycle(viewLifecycleOwner)

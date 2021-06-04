@@ -12,17 +12,20 @@ import com.quizzie.quizzieapp.util.alert
 import com.quizzie.quizzieapp.util.cast
 import com.quizzie.quizzieapp.util.showSnackbar
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
     protected val navigator by lazy { findNavController() }
     protected val baseActivity: AppCompatActivity? by lazy { activity.cast() }
 
-    fun handleBaseViewEffect(viewEffect: BaseViewEffect){
-        when(viewEffect) {
+    fun handleBaseViewEffect(viewEffect: BaseViewEffect) {
+        when (viewEffect) {
             is BaseViewEffect.ShowSnackBar -> showSnackBar(viewEffect.snackBar)
             is BaseViewEffect.NavigateTo -> navigator.navigate(viewEffect.navDirections)
             is BaseViewEffect.NavigationPop -> navigator.popBackStack()
             is BaseViewEffect.ShowAlert -> requireContext().alert(viewEffect.alert)
-            is BaseViewEffect.SetFragmentResult -> setFragmentResult(viewEffect.key, bundleOf(*viewEffect.pair))
+            is BaseViewEffect.SetFragmentResult -> setFragmentResult(
+                viewEffect.key,
+                bundleOf(*viewEffect.pair)
+            )
         }
     }
 
@@ -31,7 +34,8 @@ abstract class BaseFragment: Fragment() {
     }
 
     fun showSnackBar(snackbar: Snackbar) {
-        baseActivity?.findViewById<ViewGroup>(android.R.id.content)?.get(0)?.let { showSnackbar(it, snackbar) }
+        baseActivity?.findViewById<ViewGroup>(android.R.id.content)?.get(0)
+            ?.let { showSnackbar(it, snackbar) }
     }
 
 }

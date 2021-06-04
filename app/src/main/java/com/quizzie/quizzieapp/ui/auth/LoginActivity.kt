@@ -21,7 +21,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private var networkSnack: FSnackbar? = null
-    @Inject lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var sessionManager: SessionManager
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: AuthViewModel by viewModels()
 
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initObservers() {
         viewModel.viewEffect.observe(this) {
-            when(it) {
+            when (it) {
                 is BaseViewEffect.ShowSnackBar -> showSnackbar(binding.root, it.snackBar)
             }
         }

@@ -33,7 +33,9 @@ class QuestionsAnalyser(
     private val parser: QuestionsParser
 ) : ImageAnalysis.Analyzer {
 
-    @Inject constructor(parser: QuestionsParserImpl) : this(null, 0, parser)
+    @Inject
+    constructor(parser: QuestionsParserImpl) : this(null, 0, parser)
+
     private val ORIENTATIONS = SparseIntArray()
 
     fun getFlow() = parser.outputFlow

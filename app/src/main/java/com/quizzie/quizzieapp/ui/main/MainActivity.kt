@@ -32,7 +32,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var networkSnack: Snackbar? = null
-    @Inject lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var sessionManager: SessionManager
     private lateinit var binding: ActivityMainBinding
     private val navigator by lazy {
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
@@ -66,11 +67,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        sessionManager.authStateNotifier.asLiveData().observe(this){
+        sessionManager.authStateNotifier.asLiveData().observe(this) {
             if (!it) {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                overridePendingTransition(
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right
+                )
             }
         }
 
