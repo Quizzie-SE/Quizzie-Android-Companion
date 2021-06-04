@@ -6,6 +6,20 @@
 
 &nbsp;&nbsp;&nbsp; [![Android-master Actions Status](https://github.com/Quizzie-SE/Quizzie-Android-Companion/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Quizzie-SE/Quizzie-Android-Companion/actions) &nbsp;&nbsp;&nbsp;[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ACM-VIT/ACM-internals-Android/blob/main/LICENSE) &nbsp;&nbsp;&nbsp; [![Figma Designs](https://img.shields.io/badge/Design-Figma-important)](https://www.figma.com/file/DVmaGUkqTTvJ2VQEaDfJGK/Quizzie-Android?node-id=0%3A1)
 
+# Quizzie
+
+This project is a complete online quiz management platform with a plethora of features for teachers and students. It provides all the basic functionalities of a quiz portal like timer, scoring, ranking etc. alongside analysis of results from the students on the teacher dashboard, summary of tests for the student, Login and signup using a Google account for both teacher and student. It provides a smooth user interface for both the teachers and students to create and attempt different kinds of quizzes seamlessly. 
+
+---
+[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/10968840/SzzoZF12)
+
+
+## Motivation
+  The motivation of this project came from the idea to help teachers and institute administrators create quizzes and tests in an efficient manner. With the popularity of the Internet, it is inevitable to have online quizzes as classroom assessments. In learning, online quizzes may serve two objectives, that is, for self-study or as a formal assessment. The online quiz has its advantages, such as saving the cost of paper printing and reducing the time spent for having assessments in class. However, there are weaknesses. Its primary drawback is the issue of academic dishonesty, especially when students are answering online quiz.
+
+## Screenshots
+![Quizzie Screenshots](screenshots/quizzie_app.png)
+
 ## Structure
 
 * `build.gradle` - root gradle config file
